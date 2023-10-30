@@ -1,17 +1,18 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class DebrisManager : MonoBehaviour
 {
+	public static DebrisManager instance;
+
 	internal struct Drag
 	{
-		public GameObject debris;
+		public Debris debris;
 		public Vector2 startPos, currentPos;
 		public int touch;
 		public LineRenderer line;
-		public Drag(GameObject debris, Vector2 startPos, Vector2 currentPos, int touch, LineRenderer line)
+		public Drag(Debris debris, Vector2 startPos, Vector2 currentPos, int touch, LineRenderer line)
 		{
 			this.debris = debris;
 			this.startPos = startPos;
@@ -22,22 +23,15 @@ public class DebrisManager : MonoBehaviour
 	}
 
 	public GameObject linePrefab;
-	public Dictionary<GameObject, bool> debrisList; //bool -> has been flicked?
-	List<Drag> drags; //debrisObj, startPos, currentPos, touchIdx
+	public List<Debris> debrisList;
+	List<Drag> drags;
 
 	private void Awake()
 	{
+		instance = this;
+
 		debrisList = new();
 		drags = new();
-	}
-
-	private void Start()
-	{
-		var objs = FindObjectsOfType<DebrisLauncher>();
-		foreach (var obj in objs)
-		{
-			debrisList.Add(obj.gameObject, false);
-		}
 	}
 
 	private void Update()
@@ -51,26 +45,21 @@ public class DebrisManager : MonoBehaviour
 				Vector2 pos = Camera.main.ScreenToWorldPoint(touch.position);
 				foreach (var debris in debrisList)
 				{
-					if (debris.Value) continue;
-					if (debris.Key.TryGetComponent<Collider2D>(out var c))
+					if (debris.flicked) continue;
+					Collider2D c = debris.GetComponent<Collider2D>();
+					if (c.OverlapPoint(pos))
 					{
-						if (c.OverlapPoint(pos))
-						{
-							Debug.Log($"touch {i} overlaps with {debris.Key.name}");
-							//start dragging
+						LineRenderer line = Instantiate(linePrefab, transform).GetComponent<LineRenderer>();
+						line.positionCount = 2;
+						line.SetPosition(0, pos);
+						line.SetPosition(1, pos);
+						line.enabled = true;
 
-							LineRenderer line = Instantiate(linePrefab, transform).GetComponent<LineRenderer>();
-							line.positionCount = 2;
-							line.SetPosition(0, pos);
-							line.SetPosition(1, pos);
-							line.enabled = true;
-							
-							Drag drag = new(debris.Key, pos, pos, i, line);
-							drags.Add(drag);
+						Drag drag = new(debris, pos, pos, i, line);
+						drags.Add(drag);
 
-							debrisList[debris.Key] = true;
-							break;
-						}
+						debris.flicked = true;
+						break;
 					}
 				}
 			}
@@ -109,7 +98,7 @@ public class DebrisManager : MonoBehaviour
 		}
 		foreach (var drag in remove) EndDrag(drag);
 	}
-	
+
 	void EndDrag(Drag drag)
 	{
 		Destroy(drag.line);
