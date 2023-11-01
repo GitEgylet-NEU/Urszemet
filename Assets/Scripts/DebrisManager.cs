@@ -22,6 +22,9 @@ public class DebrisManager : MonoBehaviour
 		}
 	}
 
+	[Tooltip("Delete debris that are farther from the camera's viewport than this value.")] public float deleteDistance;
+	Rect deleteBounds;
+
 	public GameObject linePrefab;
 	public List<Debris> debrisList;
 	List<Drag> drags;
@@ -34,7 +37,23 @@ public class DebrisManager : MonoBehaviour
 		drags = new();
 	}
 
+	private void Start()
+	{
+		Vector2 corner1 = Camera.main.ScreenToWorldPoint(Vector2.zero);
+		Vector2 corner2 = Camera.main.ScreenToWorldPoint(new Vector2(Camera.main.pixelWidth, Camera.main.pixelHeight));
+		deleteBounds = new(corner1.x - deleteDistance, corner1.y - deleteDistance, corner2.x - corner1.x + deleteDistance * 2f, corner2.y - corner1.y + deleteDistance * 2f);
+	}
+
 	private void Update()
+	{
+		HandleTouches();
+
+		HandleDrags();
+
+		RemoveClutter();
+	}
+
+	void HandleTouches()
 	{
 		for (int i = 0; i < Input.touchCount; i++)
 		{
@@ -64,8 +83,10 @@ public class DebrisManager : MonoBehaviour
 				}
 			}
 		}
+	}
 
-		//handle drags
+	void HandleDrags()
+	{
 		List<Drag> remove = new();
 		for (int i = 0; i < drags.Count; i++)
 		{
@@ -104,5 +125,23 @@ public class DebrisManager : MonoBehaviour
 		Destroy(drag.line);
 		drag.debris.GetComponent<Rigidbody2D>().AddForce(-(drag.currentPos - drag.startPos), ForceMode2D.Impulse);
 		drags.Remove(drag);
+	}
+
+	void RemoveClutter()
+	{
+		foreach (Debris debris in debrisList.ToArray())
+		{
+			if (!deleteBounds.Contains(debris.transform.position))
+			{
+				debrisList.Remove(debris);
+				Destroy(debris.gameObject);
+			}
+		}
+	}
+
+	private void OnDrawGizmos()
+	{
+		Gizmos.color = Color.red;
+		Gizmos.DrawLineStrip(new System.ReadOnlySpan<Vector3>(new Vector3[] { new Vector2(deleteBounds.x, deleteBounds.y), new Vector2(deleteBounds.x, deleteBounds.y + deleteBounds.height), new Vector2(deleteBounds.x + deleteBounds.width, deleteBounds.y + deleteBounds.height), new Vector2(deleteBounds.x + deleteBounds.width, deleteBounds.y) }), true);
 	}
 }
