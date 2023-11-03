@@ -10,17 +10,36 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 554f11639f5f36b48b9f111fc033c269, type: 3}
-  m_Name: DebrisData
+  m_Name: DefaultGameData
   m_EditorClassIdentifier: 
   debrisPrefab: {fileID: 7926378065607543001, guid: d3ada265137685d428592dd3311b65ba, type: 3}
   debrisTypeData:
   - debrisType: 1
+    displayName: "M\u0171anyag"
+    color: {r: 1, g: 0.875, b: 0.25, a: 1}
+    shouldSpawnBin: 1
+    shouldCount: 1
     sprites:
     - {fileID: 21300000, guid: 3acbb4480a3e99f49a2a9e18d8e60dc4, type: 3}
+  - debrisType: 0
+    displayName: "Kommun\xE1lis"
+    color: {r: 0.3018868, g: 0, b: 0, a: 1}
+    shouldSpawnBin: 1
+    shouldCount: 0
+    sprites:
+    - {fileID: 21300000, guid: 86873f5b14e5037439fcaf1e3513fd65, type: 3}
   - debrisType: 2
+    displayName: "F\xE9m"
+    color: {r: 0.1851011, g: 0.1716358, b: 0.2735849, a: 1}
+    shouldSpawnBin: 1
+    shouldCount: 1
+    sprites:
+    - {fileID: 21300000, guid: 9a26c252c411e9f43b8184318ed48e05, type: 3}
+  - debrisType: 3
+    displayName: Elektronika
+    color: {r: 0.3443396, g: 1, b: 0.9696664, a: 1}
+    shouldSpawnBin: 1
+    shouldCount: 1
     sprites:
     - {fileID: 21300000, guid: c252d57f5d572d046afb2ffa27a9bfdf, type: 3}
     - {fileID: 21300000, guid: 18dd64a3706fff94d8bfd7c36ca70972, type: 3}
-  - debrisType: 0
-    sprites:
-    - {fileID: 21300000, guid: 86873f5b14e5037439fcaf1e3513fd65, type: 3}

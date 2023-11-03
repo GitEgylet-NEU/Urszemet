@@ -13,7 +13,8 @@ public class Debris : MonoBehaviour
 	{
 		Communal,
 		Plastic,
-		Metal
+		Metal,
+		Electronics
 	}
 	private void Awake()
 	{

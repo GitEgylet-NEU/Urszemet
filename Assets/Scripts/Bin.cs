@@ -15,27 +15,27 @@ public class Bin : MonoBehaviour
 
 	private void Start()
 	{
-		UpdateUI();
+		//UpdateUI();
+		var data = GameManager.instance.gameData.debrisTypeData.GetData(type);
+		shouldCount = data.shouldCount;
+		GetComponent<SpriteRenderer>().color = data.color;
 	}
 
-	public int counter = 0;
+	bool shouldCount = true;
 
 	private void OnCollisionEnter2D(Collision2D collision)
 	{
-		if (collision.gameObject.TryGetComponent(out Debris debris))
+		if (shouldCount && collision.gameObject.TryGetComponent(out Debris debris))
 		{
-			if (type != Debris.DebrisType.Communal)
+			if (debris.type == type)
 			{
-				if (debris.type == type)
-				{
-					counter++;
-				}
-				else
-				{
-					counter -= 5;
-				}
-				UpdateUI();
+				GameManager.instance.counter[(int)type]++;
 			}
+			else
+			{
+				GameManager.instance.counter[(int)type] -= 5;
+			}
+			//UpdateUI();
 		}
 		Destroy(collision.gameObject);
 	}
@@ -44,8 +44,8 @@ public class Bin : MonoBehaviour
 	{
 		if (counterText == null) return;
 
-		string countText = $"<b>{counter}</b>";
-		if (counter < 0) countText = "<color=red>" + countText;
+		string countText = $"<b>{GameManager.instance.counter[(int)type]}</b>";
+		if (GameManager.instance.counter[(int)type] < 0) countText = "<color=red>" + countText;
 		counterText.text = $"{type}: {countText}";
 	}
 }

@@ -3,8 +3,6 @@ using UnityEngine;
 
 public class DebrisSpawner : MonoBehaviour
 {
-	public DebrisData debrisData;
-
 	public MinMaxRange spawnRate;
 	float lastSpawn = 0f, nextSpawn = 0f;
 
@@ -36,17 +34,17 @@ public class DebrisSpawner : MonoBehaviour
 	void SpawnDebris(Vector2 position)
 	{
 		Debris.DebrisType type = (Debris.DebrisType)Random.Range(0, System.Enum.GetValues(typeof(Debris.DebrisType)).Length);
-		Sprite sprite = debrisData.GetRandomSprite(type);
+		Sprite sprite = GameManager.instance.gameData.GetRandomSprite(type);
 		int i = 0;
 		while (sprite == null && i < 10)
 		{
 			type = (Debris.DebrisType)Random.Range(0, System.Enum.GetValues(typeof(Debris.DebrisType)).Length);
-			sprite = debrisData.GetRandomSprite(type);
+			sprite = GameManager.instance.gameData.GetRandomSprite(type);
 			i++;
 		}
 		if (sprite == null) return;
 
-		GameObject debris = Instantiate(debrisData.debrisPrefab, position, Quaternion.Euler(0, 0, Random.Range(0f, 360f)), transform);
+		GameObject debris = Instantiate(GameManager.instance.gameData.debrisPrefab, position, Quaternion.Euler(0, 0, Random.Range(0f, 360f)), transform);
 		debris.GetComponent<SpriteRenderer>().sprite = sprite;
 		debris.GetComponent<Debris>().type = type;
 		Rigidbody2D rb = debris.GetComponent<Rigidbody2D>();

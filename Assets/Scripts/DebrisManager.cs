@@ -109,7 +109,7 @@ public class DebrisManager : MonoBehaviour
 				case TouchPhase.Moved or TouchPhase.Stationary:
 					drag.currentPos = pos;
 					drag.line.SetPosition(0, drag.debris.transform.position);
-					drag.line.SetPosition(1, (Vector2)drag.debris.transform.position - (drag.currentPos - drag.startPos));
+					drag.line.SetPosition(1, (Vector2)drag.debris.transform.position + (drag.currentPos - drag.startPos));
 					break;
 				case TouchPhase.Ended:
 					remove.Add(drag);
@@ -123,7 +123,7 @@ public class DebrisManager : MonoBehaviour
 	void EndDrag(Drag drag)
 	{
 		Destroy(drag.line);
-		drag.debris.GetComponent<Rigidbody2D>().AddForce(-(drag.currentPos - drag.startPos), ForceMode2D.Impulse);
+		drag.debris.GetComponent<Rigidbody2D>().AddForce(drag.currentPos - drag.startPos, ForceMode2D.Impulse);
 		drags.Remove(drag);
 	}
 
