@@ -14,9 +14,12 @@ public sealed class BinSwapper : MonoBehaviour
 	public List<Bin> bins;
 
 	[Header("Bin Rotation")]
-	public Button nextBinButton;
-	bool canSkip;
-	Debris.DebrisType nextBin;
+	public Button upButton;
+	public Button downButton;
+	public bool canRotateUp, canRotateDown;
+	bool canRotate;
+	int firstBin;
+	int nextIdx, prevIdx;
 	Debris.DebrisType[] availableBins;
 	public float rotateCooldown = 2f;
 
@@ -41,6 +44,9 @@ public sealed class BinSwapper : MonoBehaviour
 		binArea.y = corner1.y;
 		binArea.width = width;
 		binArea.height = corner2.y - corner1.y;
+
+		upButton.gameObject.SetActive(canRotateUp);
+		downButton.gameObject.SetActive(canRotateDown);
 	}
 
 	private void OnDrawGizmos()
@@ -51,41 +57,52 @@ public sealed class BinSwapper : MonoBehaviour
 
 	void Setup()
 	{
-		List<Debris.DebrisType> types = new();
-		for (int i = 0; i < binCount; i++)
-		{
-			//Debris.DebrisType type = (Debris.DebrisType)Random.Range(0, typeCount);
-			//while (typeCount >= binCount && types.Contains(type))
-			//{
-			//	type = (Debris.DebrisType)Random.Range(0, typeCount);
-			//}
-			//types.Add(type);
-			types.Add(availableBins.GetRandom(type => !types.Contains(type)));
-		}
-		canSkip = availableBins.Length > binCount;
+		firstBin = 0;
+		ShowBins(availableBins.Take(binCount).ToArray());
 
-		ShowBins(types.ToArray());
-
-		if (canSkip)
+		canRotate = availableBins.Length > binCount;
+		if (canRotate)
 		{
-			GetNextBin();
+			GetNextBins();
 		}
 		else
 		{
-			nextBinButton.gameObject.SetActive(false);
+			upButton.gameObject.SetActive(false);
 		}
 	}
 
-	public void Rotate()
+	public void RotateDown()
 	{
 		Debris.DebrisType[] types = new Debris.DebrisType[binCount];
-		types[0] = nextBin;
-		for (int i = 1; i < binCount; i++)
+		firstBin--;
+		if (firstBin >= availableBins.Length) firstBin -= availableBins.Length;
+		else if (firstBin < 0) firstBin += availableBins.Length;
+		for (int i = 0; i < binCount; i++)
 		{
-			types[i] = bins[i - 1].type;
+			int idx = firstBin + i;
+			if (idx >= availableBins.Length) idx -= availableBins.Length;
+			else if (idx < 0) idx += availableBins.Length;
+			types[i] = availableBins[idx];
 		}
 		ShowBins(types);
-		GetNextBin();
+		GetNextBins();
+		StartCoroutine(RotateCooldown());
+	}
+	public void RotateUp()
+	{
+		Debris.DebrisType[] types = new Debris.DebrisType[binCount];
+		firstBin++;
+		if (firstBin >= availableBins.Length) firstBin -= availableBins.Length;
+		else if (firstBin < 0) firstBin += availableBins.Length;
+		for (int i = 0; i < binCount; i++)
+		{
+			int idx = firstBin + i;
+			if (idx >= availableBins.Length) idx -= availableBins.Length;
+			else if (idx < 0) idx += availableBins.Length;
+			types[i] = availableBins[idx];
+		}
+		ShowBins(types);
+		GetNextBins();
 		StartCoroutine(RotateCooldown());
 	}
 
@@ -114,19 +131,24 @@ public sealed class BinSwapper : MonoBehaviour
 			bins.Add(bin);
 		}
 	}
-
-	void GetNextBin()
+	void GetNextBins()
 	{
-		nextBin = availableBins.GetRandom(type => !bins.Any(bin => bin.type == type));
-		Debug.Log($"Next bin: {nextBin}");
-
-		nextBinButton.transform.GetChild(1).GetComponent<Image>().color = GameManager.instance.gameData.debrisTypeData.GetData(nextBin).color;
+		nextIdx = firstBin + binCount;
+		if (nextIdx >= availableBins.Length) nextIdx -= availableBins.Length;
+		else if (nextIdx < 0) nextIdx += availableBins.Length;
+		prevIdx = firstBin - 1;
+		if (prevIdx >= availableBins.Length) prevIdx -= availableBins.Length;
+		else if (prevIdx < 0) prevIdx += availableBins.Length;
+		upButton.transform.GetChild(1).GetComponent<Image>().color = GameManager.instance.gameData.debrisTypeData.GetData(availableBins[prevIdx]).color;
+		downButton.transform.GetChild(1).GetComponent<Image>().color = GameManager.instance.gameData.debrisTypeData.GetData(availableBins[nextIdx]).color;
 	}
 
 	IEnumerator RotateCooldown()
 	{
-		nextBinButton.interactable = false;
+		upButton.interactable = false;
+		downButton.interactable = false;
 		yield return new WaitForSeconds(rotateCooldown);
-		nextBinButton.interactable = true;
+		upButton.interactable = true;
+		downButton.interactable = true;
 	}
 }

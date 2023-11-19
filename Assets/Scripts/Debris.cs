@@ -14,7 +14,8 @@ public class Debris : MonoBehaviour
 		Communal,
 		Plastic,
 		Metal,
-		Electronics
+		Electronics,
+		Glass
 	}
 	private void Awake()
 	{
