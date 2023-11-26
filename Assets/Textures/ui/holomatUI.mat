@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: holomat
-  m_Shader: {fileID: -6465566751694194690, guid: 5d7a6d90ca04501418fe2b52f3d4047f, type: 3}
+  m_Name: holomatUI
+  m_Shader: {fileID: -6465566751694194690, guid: 679b9a1870a50d74ebf5f2960f9144e3, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
