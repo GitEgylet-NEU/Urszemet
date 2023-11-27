@@ -14,6 +14,7 @@ public sealed class UIManager : MonoBehaviour
 		for (int i = 0; i < GameManager.instance.counter.Length; i++)
 		{
 			var data = GameManager.instance.gameData.debrisTypeData.GetData((Debris.DebrisType)i);
+			if (data == null) continue;
 			if (!data.shouldCount) continue;
 			sb.AppendLine($"<b><color=#{ColorUtility.ToHtmlStringRGB(data.color)}>{data.displayName}</color></b>: {GameManager.instance.counter[i]}");
 		}

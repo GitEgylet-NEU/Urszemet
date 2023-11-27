@@ -1,3 +1,4 @@
+using GitEgylet.Utilities;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -8,6 +9,12 @@ public class GameData : ScriptableObject
 	[Header("Debris")]
 	public GameObject debrisPrefab;
 	public DebrisTypeData[] debrisTypeData;
+
+	[Header("Special Debris")]
+	public GameObject goodSDPrefab;
+	public GameObject badSDPrefab;
+	public float minSDDistance = 5f;
+
 
 	public Sprite GetRandomSprite(Debris.DebrisType debrisType)
 	{

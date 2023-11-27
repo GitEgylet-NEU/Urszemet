@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class DebrisManager : MonoBehaviour
@@ -29,6 +30,8 @@ public class DebrisManager : MonoBehaviour
 	public List<Debris> debrisList;
 	List<Drag> drags;
 
+	public bool CanSpawnSD { get; private set; } = true;
+
 	private void Awake()
 	{
 		instance = this;
@@ -51,6 +54,8 @@ public class DebrisManager : MonoBehaviour
 		HandleDrags();
 
 		RemoveClutter();
+
+		CanSpawnSD = !debrisList.Any(d => d.type == Debris.DebrisType.SpecialBad || d.type == Debris.DebrisType.SpecialGood);
 	}
 
 	void HandleTouches()

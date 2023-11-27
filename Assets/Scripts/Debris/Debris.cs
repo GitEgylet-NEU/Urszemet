@@ -11,11 +11,13 @@ public class Debris : MonoBehaviour
 	
 	public enum DebrisType
 	{
-		Communal,
-		Plastic,
-		Metal,
-		Electronics,
-		Glass
+		Communal = 0,
+		Plastic = 1,
+		Metal = 2,
+		Electronics = 3,
+		Glass = 4,
+		SpecialGood = 10,
+		SpecialBad = 11
 	}
 	private void Awake()
 	{
@@ -32,10 +34,22 @@ public class Debris : MonoBehaviour
 			c = GetComponent<PolygonCollider2D>();
 		}
 	}
+	private void OnCollisionEnter2D(Collision2D collision)
+	{
+		if (type == DebrisType.SpecialGood || type == DebrisType.SpecialBad)
+		{
+			if (collision.gameObject.TryGetComponent(out Debris d) && d.type == type)
+			{
+				//TODO: execute logic (add modifier)
+				Destroy(d.gameObject);
+				Destroy(gameObject);
+			}
+		}
+	}
 	private void OnDestroy()
 	{
 		DebrisManager.instance.debrisList.Remove(this);
-	} 
+	}
 
 	private void OnDrawGizmosSelected()
 	{
