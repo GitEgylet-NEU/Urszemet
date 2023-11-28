@@ -38,7 +38,7 @@ public class DebrisSpawner : MonoBehaviour
 			nextSpawn = spawnRate.Get();
 			SpawnDebris(GetRandomPoint());
 		}
-		if (lastSpawnSDG >= nextSpawnSDG && DebrisManager.instance.CanSpawnSD)
+		if (lastSpawnSDG >= nextSpawnSDG && DebrisManager.instance.CanSpawnSD || Input.GetKeyDown(KeyCode.G))
 		{
 			lastSpawnSDG = 0f;
 			nextSpawnSDG = spawnRateSDG.Get();

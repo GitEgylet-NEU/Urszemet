@@ -40,7 +40,8 @@ public class Debris : MonoBehaviour
 		{
 			if (collision.gameObject.TryGetComponent(out Debris d) && d.type == type)
 			{
-				//TODO: execute logic (add modifier)
+				d.GetComponent<Debris>().enabled = false;
+				ModifierManager.instance.ActivateRandomModifier(type == DebrisType.SpecialGood);
 				Destroy(d.gameObject);
 				Destroy(gameObject);
 			}
