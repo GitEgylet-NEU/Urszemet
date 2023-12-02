@@ -1,7 +1,6 @@
 using NohaSoftware.Utilities;
 using System.Collections;
 using System.Collections.Generic;
-using System.Text;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -23,21 +22,26 @@ public sealed class UIManager : MonoBehaviour
 	Queue<InfoPanelData> infoPanelQueue = new();
 	bool IsInfoPanelActive => infoPanel.gameObject.activeSelf;
 
+	[Header("Strikes")]
+	[SerializeField] RectTransform strikeHolder;
+	[SerializeField] Sprite fullStrike, emptyStrike;
+
 	void Update()
 	{
-		StringBuilder sb = new StringBuilder();
-		for (int i = 0; i < GameManager.instance.counter.Length; i++)
-		{
-			var data = GameManager.instance.gameData.debrisTypeData.GetData((Debris.DebrisType)i);
-			if (data == null) continue;
-			if (!data.shouldCount) continue;
-			sb.AppendLine($"<b><color=#{ColorUtility.ToHtmlStringRGB(data.color)}>{data.displayName}</color></b>: {GameManager.instance.counter[i]}");
-		}
-		counterText.text = sb.ToString();
-		counterText.RecalculateClipping();
-		var rect = counterText.GetComponent<RectTransform>();
-		counterText.transform.parent.GetComponent<RectTransform>().SetHeight(counterText.GetPreferredValues(sb.ToString()).y - rect.offsetMax.y + rect.offsetMin.y);
+		//counter text
+		counterText.text = $"{GameManager.instance.counter} ({GameManager.instance.points})";
+		var values = counterText.GetPreferredValues(counterText.text);
+		var rect = counterText.transform.parent.GetComponent<RectTransform>();
+		rect.SetHeight(values.y + 50f);
+		rect.SetWidth(values.x + 50f);
 
+		//strike icons
+		for (int i = 0; i < 3; i++)
+		{
+			strikeHolder.GetChild(i).GetComponent<Image>().sprite = i >= GameManager.instance.strikes ? emptyStrike : fullStrike;
+		}
+
+		//stop time if info panel is shown
 		Time.timeScale = IsInfoPanelActive ? 0f : 1f;
 	}
 
@@ -72,6 +76,13 @@ public sealed class UIManager : MonoBehaviour
 	{
 		infoPanelQueue.Enqueue(infoPanelData);
 		if (!IsInfoPanelActive) ShowNextInfoPanel();
+	}
+	public void ShowGameOver()
+	{
+		infoPanelQueue.Clear();
+		infoPanel.gameObject.SetActive(false);
+		infoPanel.Find("ConfirmButton").GetComponent<Button>().onClick.AddListener(() => GameManager.instance.ExitGame());
+		AddInfoPanelToQueue("Játék vége!", $"Sajnos, számodra véget ért a játék, mert háromszor is rosszul szelektáltál. Egyet se csüggedj, próbáld hát újra!\n\nA kör pontszáma: {GameManager.instance.counter}", fullStrike, "Kilépés");
 	}
 
 	public void CloseInfoPanel()

@@ -60,17 +60,17 @@ public class DebrisSpawner : MonoBehaviour
 	void SpawnDebris(Vector2 position)
 	{
 		Debris.DebrisType type = (Debris.DebrisType)Random.Range(0, System.Enum.GetValues(typeof(Debris.DebrisType)).Length);
-		Sprite sprite = GameManager.instance.gameData.GetRandomSprite(type);
+		Sprite sprite = GameManager.instance.gameSettings.GetRandomSprite(type);
 		int i = 0;
 		while (sprite == null && i < 10)
 		{
 			type = (Debris.DebrisType)Random.Range(0, System.Enum.GetValues(typeof(Debris.DebrisType)).Length);
-			sprite = GameManager.instance.gameData.GetRandomSprite(type);
+			sprite = GameManager.instance.gameSettings.GetRandomSprite(type);
 			i++;
 		}
 		if (sprite == null) return;
 
-		GameObject debris = Instantiate(GameManager.instance.gameData.debrisPrefab, position, Quaternion.Euler(0, 0, Random.Range(0f, 360f)), transform);
+		GameObject debris = Instantiate(GameManager.instance.gameSettings.debrisPrefab, position, Quaternion.Euler(0, 0, Random.Range(0f, 360f)), transform);
 		debris.GetComponent<SpriteRenderer>().sprite = sprite;
 		debris.GetComponent<Debris>().type = type;
 		Rigidbody2D rb = debris.GetComponent<Rigidbody2D>();
@@ -80,7 +80,7 @@ public class DebrisSpawner : MonoBehaviour
 
 	void SpawnSpecialDebris(bool good)
 	{
-		GameObject prefab = good ? GameManager.instance.gameData.goodSDPrefab : GameManager.instance.gameData.badSDPrefab;
+		GameObject prefab = good ? GameManager.instance.gameSettings.goodSDPrefab : GameManager.instance.gameSettings.badSDPrefab;
 		Vector2 pos1 = GetRandomPointForSD();
 		Vector2 pos2 = GetRandomPointForSD(pos1);
 
@@ -137,7 +137,7 @@ public class DebrisSpawner : MonoBehaviour
 	{
 		Vector2 p = new(spawnAreaSD.x + Random.Range(0, spawnAreaSD.width), spawnAreaSD.y + Random.Range(0, spawnAreaSD.height));
 		int i = 1;
-		while (i < 100 && playArea.Contains(p) && Vector2.Distance(other, p) < GameManager.instance.gameData.minSDDistance)
+		while (i < 100 && playArea.Contains(p) && Vector2.Distance(other, p) < GameManager.instance.gameSettings.minSDDistance)
 		{
 			p = new(spawnAreaSD.x + Random.Range(0, spawnAreaSD.width), spawnAreaSD.y + Random.Range(0, spawnAreaSD.height));
 			i++;

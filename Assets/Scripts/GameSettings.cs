@@ -1,10 +1,9 @@
-using GitEgylet.Utilities;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Game Data")]
-public class GameData : ScriptableObject
+[CreateAssetMenu(menuName = "Game Settings")]
+public class GameSettings : ScriptableObject
 {
 	[Header("Debris")]
 	public GameObject debrisPrefab;
@@ -49,7 +48,7 @@ public class GameData : ScriptableObject
 }
 public static class DebrisTypeDataExtensions
 {
-	public static GameData.DebrisTypeData GetData(this IEnumerable<GameData.DebrisTypeData> data, Debris.DebrisType debrisType)
+	public static GameSettings.DebrisTypeData GetData(this IEnumerable<GameSettings.DebrisTypeData> data, Debris.DebrisType debrisType)
 	{
 		var query = data.Where(x => x.debrisType == debrisType).FirstOrDefault();
 		return query;

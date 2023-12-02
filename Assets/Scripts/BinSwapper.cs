@@ -26,7 +26,7 @@ public sealed class BinSwapper : MonoBehaviour
 	void Start()
 	{
 		availableBins = System.Enum.GetValues(typeof(Debris.DebrisType)) as Debris.DebrisType[];
-		availableBins = availableBins.Where(type => GameManager.instance.gameData.ShouldSpawnBin(type)).ToArray();
+		availableBins = availableBins.Where(type => GameManager.instance.gameSettings.ShouldSpawnBin(type)).ToArray();
 
 		if (availableBins.Length < binCount) binCount = availableBins.Length;
 
@@ -139,8 +139,8 @@ public sealed class BinSwapper : MonoBehaviour
 		prevIdx = firstBin - 1;
 		if (prevIdx >= availableBins.Length) prevIdx -= availableBins.Length;
 		else if (prevIdx < 0) prevIdx += availableBins.Length;
-		upButton.transform.GetChild(1).GetComponent<Image>().color = GameManager.instance.gameData.debrisTypeData.GetData(availableBins[prevIdx]).color;
-		downButton.transform.GetChild(1).GetComponent<Image>().color = GameManager.instance.gameData.debrisTypeData.GetData(availableBins[nextIdx]).color;
+		upButton.transform.GetChild(1).GetComponent<Image>().color = GameManager.instance.gameSettings.debrisTypeData.GetData(availableBins[prevIdx]).color;
+		downButton.transform.GetChild(1).GetComponent<Image>().color = GameManager.instance.gameSettings.debrisTypeData.GetData(availableBins[nextIdx]).color;
 	}
 
 	IEnumerator RotateCooldown()
