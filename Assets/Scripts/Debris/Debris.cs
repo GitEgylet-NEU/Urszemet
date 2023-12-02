@@ -8,6 +8,7 @@ public class Debris : MonoBehaviour
 
 	public bool flicked = false;
 	public DebrisType type = DebrisType.Communal;
+	public bool IsSpecial => type == DebrisType.SpecialGood || type == DebrisType.SpecialBad;
 	
 	public enum DebrisType
 	{

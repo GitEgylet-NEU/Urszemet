@@ -16,7 +16,7 @@ public class Bin : MonoBehaviour
 
 	private void OnCollisionEnter2D(Collision2D collision)
 	{
-		if (collision.gameObject.TryGetComponent(out Debris debris))
+		if (collision.gameObject.TryGetComponent(out Debris debris) && !debris.IsSpecial)
 		{
 			if (shouldCount)
 			{
