@@ -8,6 +8,7 @@ public class GameSettings : ScriptableObject
 	[Header("Debris")]
 	public GameObject debrisPrefab;
 	public DebrisTypeData[] debrisTypeData;
+	public float minDistance = .4f;
 
 	[Header("Special Debris")]
 	public GameObject goodSDPrefab;

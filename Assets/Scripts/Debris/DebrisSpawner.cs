@@ -1,19 +1,29 @@
 using GitEgylet.Utilities;
+using System.Linq;
 using UnityEngine;
 
 public class DebrisSpawner : MonoBehaviour
 {
+	public float spawnAreaDistance;
+	Rect spawnArea;
+	Rect spawnAreaSD, playArea;
+
+	[Header("Spawn Rates")]
 	public MinMaxRange spawnRate;
 	float lastSpawn = 0f, nextSpawn = 0f;
 	public MinMaxRange spawnRateSDG, spawnRateSDB;
 	float lastSpawnSDG = 0f, nextSpawnSDG = 0f;
 	float lastSpawnSDB = 0f, nextSpawnSDB = 0f;
 
-	public float spawnAreaDistance;
-	Rect spawnArea;
-	Rect spawnAreaSD, playArea;
+	public int baseSpawnLimit = 10;
+	public int spawnLimitChange = 3;
+	public float spawnLimitChangeInterval = 15f;
+	int spawnLimit;
 
-	public MinMaxRange spawnVelocity, spawnVelocityAngle, spawnAngularVelocity;
+	[Header("Debris Properties")]
+	public MinMaxRange spawnVelocity;
+	public MinMaxRange spawnVelocityAngle;
+	public MinMaxRange spawnAngularVelocity;
 
 	void Start()
 	{
@@ -32,11 +42,15 @@ public class DebrisSpawner : MonoBehaviour
 
 	void Update()
 	{
-		if (lastSpawn >= nextSpawn || Input.GetKeyDown(KeyCode.Space))
+		if ((lastSpawn >= nextSpawn && DebrisManager.instance.debrisList.Count < spawnLimit) || Input.GetKeyDown(KeyCode.Space))
 		{
-			lastSpawn = 0f;
-			nextSpawn = spawnRate.Get();
-			SpawnDebris(GetRandomPoint());
+			var query = GetRandomPoint();
+			if (query.HasValue)
+			{
+				lastSpawn = 0f;
+				nextSpawn = spawnRate.Get();
+				SpawnDebris(query.Value);
+			}	
 		}
 		if (lastSpawnSDG >= nextSpawnSDG && DebrisManager.instance.CanSpawnSD || Input.GetKeyDown(KeyCode.G))
 		{
@@ -51,10 +65,12 @@ public class DebrisSpawner : MonoBehaviour
 			SpawnSpecialDebris(false);
 		}
 
-
 		lastSpawn += Time.deltaTime;
 		lastSpawnSDG += Time.deltaTime;
 		lastSpawnSDB += Time.deltaTime;
+
+		spawnLimit = baseSpawnLimit + spawnLimitChange * Mathf.FloorToInt(Time.time / spawnLimitChangeInterval);
+		Debug.Log($"{DebrisManager.instance.debrisList.Count}/{spawnLimit}");
 	}
 
 	void SpawnDebris(Vector2 position)
@@ -113,12 +129,17 @@ public class DebrisSpawner : MonoBehaviour
 		Gizmos.DrawLineStrip(new System.ReadOnlySpan<Vector3>(new Vector3[] { new Vector2(playArea.x, playArea.y), new Vector2(playArea.x, playArea.y + playArea.height), new Vector2(playArea.x + playArea.width, playArea.y + playArea.height), new Vector2(playArea.x + playArea.width, playArea.y) }), true);
 	}
 
-	Vector2 GetRandomPoint()
+	Vector2? GetRandomPoint()
 	{
-		float x = spawnArea.x + Random.Range(0, spawnArea.width);
-		float y = spawnArea.y + Random.Range(0, spawnArea.height);
-		// TODO: don't overlap an existing debris
-		return new Vector2(x, y);
+		Vector2 p = new(spawnArea.x + Random.Range(0, spawnArea.width), spawnArea.y + Random.Range(0, spawnArea.height));
+		int i = 0;
+		while (i < 100 && DebrisManager.instance.debrisList.Any(d => Vector2.Distance(d.transform.position, p) < GameManager.instance.gameSettings.minDistance))
+		{
+			p = new(spawnArea.x + Random.Range(0, spawnArea.width), spawnArea.y + Random.Range(0, spawnArea.height));
+			i++;
+		}
+		if (DebrisManager.instance.debrisList.Any(d => Vector2.Distance(d.transform.position, p) < GameManager.instance.gameSettings.minDistance)) return null;
+		else return p;
 	}
 	/// <summary>Get a random <see cref="Vector2"/> for a Special Debris</summary>
 	Vector2 GetRandomPointForSD()
