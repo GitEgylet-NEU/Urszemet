@@ -14,6 +14,8 @@ public class GameSettings : ScriptableObject
 	public GameObject badSDPrefab;
 	public float minSDDistance = 5f;
 
+	[Header("Gameplay")]
+	public int defaultBinCapacity = 25;
 
 	public Sprite GetRandomSprite(Debris.DebrisType debrisType)
 	{

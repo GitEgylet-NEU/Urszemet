@@ -14,6 +14,7 @@ public sealed class UIManager : MonoBehaviour
 	}
 
 	public TextMeshProUGUI counterText;
+	public TextMeshProUGUI capacityText;
 	public BinSwapper swapper;
 	public RectTransform modifierList;
 
@@ -32,6 +33,14 @@ public sealed class UIManager : MonoBehaviour
 		counterText.text = $"{GameManager.instance.counter} ({GameManager.instance.points})";
 		var values = counterText.GetPreferredValues(counterText.text);
 		var rect = counterText.transform.parent.GetComponent<RectTransform>();
+		rect.SetHeight(values.y + 50f);
+		rect.SetWidth(values.x + 50f);
+
+		//capacity text
+		capacityText.text = $"{GameManager.instance.binFilled} / {GameManager.instance.binCapacity}";
+		capacityText.color = GameManager.instance.binFilled >= GameManager.instance.binCapacity * .85f ? Color.red : Color.black;
+		values = capacityText.GetPreferredValues(capacityText.text);
+		rect = capacityText.transform.parent.GetComponent<RectTransform>();
 		rect.SetHeight(values.y + 50f);
 		rect.SetWidth(values.x + 50f);
 
@@ -77,12 +86,14 @@ public sealed class UIManager : MonoBehaviour
 		infoPanelQueue.Enqueue(infoPanelData);
 		if (!IsInfoPanelActive) ShowNextInfoPanel();
 	}
-	public void ShowGameOver()
+	public void ShowGameOver(bool strikes)
 	{
+		string text = strikes ? "Sajnos, számodra véget ért a játék, mert háromszor is rosszul szelektáltál. Egyet se csüggedj, próbáld hát újra!" : "Megtelt az ûrhajód rakodótere, így kénytelen vagy hazatérni, hogy kiürítsd. Érdemes lenne megfontolni a tárolóegységed fejlesztését! (bolt)";
+		Sprite icon = strikes ? fullStrike : null;
 		infoPanelQueue.Clear();
 		infoPanel.gameObject.SetActive(false);
 		infoPanel.Find("ConfirmButton").GetComponent<Button>().onClick.AddListener(() => GameManager.instance.ExitGame());
-		AddInfoPanelToQueue("Játék vége!", $"Sajnos, számodra véget ért a játék, mert háromszor is rosszul szelektáltál. Egyet se csüggedj, próbáld hát újra!\n\nA kör pontszáma: {GameManager.instance.counter}", fullStrike, "Kilépés");
+		AddInfoPanelToQueue("Játék vége!", text + $"\n\nA kör pontszáma: {GameManager.instance.counter}", icon, "Kilépés");
 	}
 
 	public void CloseInfoPanel()

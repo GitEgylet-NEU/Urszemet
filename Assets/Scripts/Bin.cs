@@ -16,17 +16,21 @@ public class Bin : MonoBehaviour
 
 	private void OnCollisionEnter2D(Collision2D collision)
 	{
-		if (shouldCount && collision.gameObject.TryGetComponent(out Debris debris))
+		if (collision.gameObject.TryGetComponent(out Debris debris))
 		{
-			if (debris.type == type)
+			if (shouldCount)
 			{
-				GameManager.instance.counter++;
+				if (debris.type == type)
+				{
+					GameManager.instance.counter++;
+				}
+				else
+				{
+					//GameManager.instance.counter--;
+					GameManager.instance.strikes--;
+				}
 			}
-			else
-			{
-				//GameManager.instance.counter--;
-				GameManager.instance.strikes--;
-			}
+			GameManager.instance.binFilled++;
 		}
 		Destroy(collision.gameObject);
 	}

@@ -14,6 +14,8 @@ public sealed class GameManager : MonoBehaviour
 	public int counter;
 	public int points;
 	public int strikes = 3;
+	public int binCapacity;
+	public int binFilled = 0;
 
 	private void Start()
 	{
@@ -30,7 +32,11 @@ public sealed class GameManager : MonoBehaviour
 
 		if (strikes <= 0)
 		{
-			UIManager.instance.ShowGameOver();
+			UIManager.instance.ShowGameOver(true);
+		}
+		else if (binFilled >= binCapacity)
+		{
+			UIManager.instance.ShowGameOver(false);
 		}
 	}
 
@@ -48,10 +54,16 @@ public sealed class GameManager : MonoBehaviour
 		{
 			points = PlayerPrefs.GetInt("currency");
 		}
+		if (PlayerPrefs.HasKey("binCapacity"))
+		{
+			binCapacity = PlayerPrefs.GetInt("binCapacity");
+		}
+		else binCapacity = gameSettings.defaultBinCapacity;
 	}
 	public void SaveData()
 	{
 		PlayerPrefs.SetInt("currency", points);
+		PlayerPrefs.SetInt("binCapacity", binCapacity);
 		PlayerPrefs.Save();
 	}
 
