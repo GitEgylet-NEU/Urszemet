@@ -14,9 +14,19 @@ public class ModifierManager : MonoBehaviour
 
 	public Modifier[] modifiers;
 	public Dictionary<string, float> activeModifiers = new();
+	public Dictionary<string, bool> hasSeenModifier;
 
 	bool canSpawn = true;
 	Coroutine spawnCooldown;
+
+	private void Start()
+	{
+		hasSeenModifier = new();
+		foreach (Modifier m in modifiers)
+		{
+			hasSeenModifier.Add(m.id, false);
+		}
+	}
 
 	public string ActivateRandomModifier(bool good)
 	{
@@ -82,6 +92,7 @@ public class ModifierManager : MonoBehaviour
 		public string description;
 		public Sprite icon;
 		public float duration;
+		//TODO: implement rarity
 		[Range(0f, 1f)] public float rarity; //0 is never
 
 		public Color GetColor() => good ? Color.blue : Color.red;
