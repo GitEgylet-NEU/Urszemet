@@ -74,8 +74,8 @@ Material:
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
-    - _HoloIntensity: 1.76
-    - _HoloSpeed: 0.99
+    - _HoloIntensity: 2.18
+    - _HoloSpeed: 0.1
     - _Metallic: 0
     - _Mode: 0
     - _OcclusionStrength: 1
