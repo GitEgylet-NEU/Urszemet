@@ -1,0 +1,4 @@
+.unity-text-element {
+    color: rgb(255, 249, 249);
+    font-size: 40px;
+}

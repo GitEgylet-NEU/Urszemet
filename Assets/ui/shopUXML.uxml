@@ -1,0 +1,18 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/ui/shop.uss?fileID=7433441132597879392&amp;guid=ffba8fb708745574eb2566e567a631ab&amp;type=3#shop" />
+    <ui:VisualElement style="flex-grow: 1; flex-direction: row; justify-content: space-around; align-items: flex-start; margin-top: 10px; margin-right: 10px; margin-bottom: 10px; margin-left: 10px;">
+        <ui:VisualElement name="VisualElement" style="flex-grow: 1; width: 600px; max-width: 600px; min-width: 600px; height: 100%; background-color: rgba(255, 0, 0, 0.66);" />
+        <ui:VisualElement style="flex-direction: column; height: 100%; width: 200%;">
+            <ui:VisualElement name="VisualElement" style="flex-grow: 1; flex-direction: row; justify-content: space-around;">
+                <ui:Label tabindex="-1" text="Ship upgrades" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Label" />
+                <ui:Label tabindex="-1" text="Abilities" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Label" />
+            </ui:VisualElement>
+            <ui:VisualElement name="VisualElement" style="flex-grow: 1; flex-direction: row;">
+                <ui:VisualElement name="VisualElement" style="flex-grow: 1; width: 50%;">
+                    <ui:ScrollView focusable="false" vertical-scroller-visibility="Hidden" />
+                </ui:VisualElement>
+                <ui:VisualElement name="VisualElement" style="flex-grow: 1; width: 50%;" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>
