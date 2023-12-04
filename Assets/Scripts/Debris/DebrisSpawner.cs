@@ -92,7 +92,7 @@ public class DebrisSpawner : MonoBehaviour
 		rb1.angularVelocity = spawnAngularVelocity.Get();
 		Debris d1 = debris1.GetComponent<Debris>();
 		d1.type = good ? Debris.DebrisType.SpecialGood : Debris.DebrisType.SpecialBad;
-		d1.flicked = true;
+		d1.flicked = -1;
 
 		GameObject debris2 = Instantiate(prefab, pos2, Quaternion.Euler(0, 0, Random.Range(0f, 360f)), transform);
 		Rigidbody2D rb2 = debris2.GetComponent<Rigidbody2D>();
@@ -100,7 +100,7 @@ public class DebrisSpawner : MonoBehaviour
 		rb2.angularVelocity = spawnAngularVelocity.Get();
 		Debris d2 = debris2.GetComponent<Debris>();
 		d2.type = good ? Debris.DebrisType.SpecialGood : Debris.DebrisType.SpecialBad;
-		d2.flicked = true;
+		d2.flicked = -1;
 	}
 
 	private void OnDrawGizmos()

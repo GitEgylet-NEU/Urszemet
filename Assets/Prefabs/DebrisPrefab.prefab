@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7958063494589783153}
   - component: {fileID: 5707604070943238780}
   - component: {fileID: -7968201889625639002}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: DebrisPrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}

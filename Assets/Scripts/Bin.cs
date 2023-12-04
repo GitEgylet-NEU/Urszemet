@@ -22,7 +22,7 @@ public class Bin : MonoBehaviour
 			{
 				if (debris.type == type)
 				{
-					GameManager.instance.counter++;
+					GameManager.instance.counter += 1 * GameManager.instance.pointMultiplier;
 				}
 				else
 				{

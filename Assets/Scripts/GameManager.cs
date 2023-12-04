@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public sealed class GameManager : MonoBehaviour
@@ -10,9 +12,13 @@ public sealed class GameManager : MonoBehaviour
 
 	public GameSettings gameSettings;
 
+	public bool paused = false;
+	public List<float> timeMultipliers = new() { 1f };
+
 	[Header("Gameplay Data")]
-	public int counter;
-	public int points;
+	public float counter;
+	public float pointMultiplier = 1f;
+	public float points;
 	public int strikes = 3;
 	public int binCapacity;
 	public int binFilled = 0;
@@ -38,6 +44,8 @@ public sealed class GameManager : MonoBehaviour
 		{
 			UIManager.instance.ShowGameOver(false);
 		}
+
+		Time.timeScale = paused ? 0f : timeMultipliers.Aggregate((total, next) => total *= next);
 	}
 
 	public void ExitGame()
@@ -52,7 +60,7 @@ public sealed class GameManager : MonoBehaviour
 	{
 		if (PlayerPrefs.HasKey("currency"))
 		{
-			points = PlayerPrefs.GetInt("currency");
+			points = PlayerPrefs.GetFloat("currency");
 		}
 		if (PlayerPrefs.HasKey("binCapacity"))
 		{
@@ -62,7 +70,7 @@ public sealed class GameManager : MonoBehaviour
 	}
 	public void SaveData()
 	{
-		PlayerPrefs.SetInt("currency", points);
+		PlayerPrefs.SetFloat("currency", points);
 		PlayerPrefs.SetInt("binCapacity", binCapacity);
 		PlayerPrefs.Save();
 	}

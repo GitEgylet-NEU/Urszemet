@@ -6,7 +6,7 @@ public class Debris : MonoBehaviour
 	Collider2D c;
 	Rigidbody2D rb;
 
-	public bool flicked = false;
+	public int flicked = 0;
 	public DebrisType type = DebrisType.Communal;
 	public bool IsSpecial => type == DebrisType.SpecialGood || type == DebrisType.SpecialBad;
 	
@@ -34,10 +34,11 @@ public class Debris : MonoBehaviour
 			Destroy(c);
 			c = GetComponent<PolygonCollider2D>();
 		}
+		if (!IsSpecial) rb.excludeLayers = DebrisManager.instance.noCollide ? LayerMask.GetMask("AffectedByNoCollide") : ~0;
 	}
 	private void OnCollisionEnter2D(Collision2D collision)
 	{
-		if (type == DebrisType.SpecialGood || type == DebrisType.SpecialBad)
+		if (IsSpecial)
 		{
 			if (collision.gameObject.TryGetComponent(out Debris d) && d.type == type)
 			{

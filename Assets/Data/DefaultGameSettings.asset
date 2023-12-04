@@ -69,3 +69,4 @@ MonoBehaviour:
     duration:
       min: 0
       max: 0
+  modifierSettings: {fileID: 11400000, guid: d5f7e58dad2d21841995f82a38546555, type: 2}

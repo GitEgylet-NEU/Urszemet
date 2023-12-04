@@ -12,7 +12,6 @@ public class ModifierManager : MonoBehaviour
 		instance = this;
 	}
 
-	public Modifier[] modifiers;
 	public Dictionary<string, float> activeModifiers = new();
 	public Dictionary<string, bool> hasSeenModifier;
 
@@ -22,17 +21,25 @@ public class ModifierManager : MonoBehaviour
 	private void Start()
 	{
 		hasSeenModifier = new();
-		foreach (Modifier m in modifiers)
+		foreach (Modifier m in GameManager.instance.gameSettings.modifierSettings.modifiers)
 		{
 			hasSeenModifier.Add(m.id, false);
 		}
+
+		//HandleModifierStart("no_collision");
+	}
+
+	private void Update()
+	{
+		if (Input.GetKeyDown(KeyCode.O)) HandleModifierStart("two_hits");
+		else if (Input.GetKeyDown(KeyCode.L)) HandleModifierEnd("two_hits");
 	}
 
 	public string ActivateRandomModifier(bool good)
 	{
 		if (!canSpawn) return string.Empty;
 
-		string id = GetRandomModifier(good);
+		string id = GameManager.instance.gameSettings.modifierSettings.GetRandomModifier(good);
 		if (id == null)
 		{
 			Debug.LogError("Can't find a " + (good ? "good" : "bad") + " Modifier. Make sure the corresponding Modifier pool isn't empty!");
@@ -56,7 +63,7 @@ public class ModifierManager : MonoBehaviour
 	public bool ActivateModifier(string id)
 	{
 		Modifier modifier = null;
-		var query = modifiers.Where(m => m.id == id);
+		var query = GameManager.instance.gameSettings.modifierSettings.modifiers.Where(m => m.id == id);
 		if (query.Any()) modifier = query.FirstOrDefault();
 		if (modifier == null)
 		{
@@ -67,14 +74,10 @@ public class ModifierManager : MonoBehaviour
 		activeModifiers.Add(id, modifier.duration);
 		UIManager.instance.AddModifier(modifier);
 		// do logic
+		HandleModifierStart(id);
 		return true;
 	}
 
-	public string GetRandomModifier(bool good, bool avoidActive = true)
-	{
-		if (avoidActive) return modifiers.GetRandom(m => m.good == good && !activeModifiers.ContainsKey(m.id)).id;
-		else return modifiers.GetRandom(m => m.good == good).id;
-	}
 	IEnumerator SpawnCooldown()
 	{
 		canSpawn = false;
@@ -83,18 +86,64 @@ public class ModifierManager : MonoBehaviour
 		canSpawn = true;
 	}
 
-	[System.Serializable]
-	public class Modifier
+	void HandleModifierStart(string id)
 	{
-		[Tooltip("Must be unique!")] public string id;
-		public bool good;
-		public string name;
-		public string description;
-		public Sprite icon;
-		public float duration;
-		//TODO: implement rarity
-		[Range(0f, 1f)] public float rarity; //0 is never
-
-		public Color GetColor() => good ? Color.blue : Color.red;
+		switch (id)
+		{
+			//good modifiers
+			case "two_hits":
+				DebrisManager.instance.maxFlicks = 2;
+				break;
+			case "jolly_joker":
+				break;
+			case "double_points":
+				GameManager.instance.pointMultiplier = 2f;
+				break;
+			case "no_collision":
+				DebrisManager.instance.ToggleNoCollide(true);
+				break;
+			//bad modifiers
+			case "time_speed":
+				GameManager.instance.timeMultipliers.Add(2f);
+				break;
+			case "mono_vision":
+				break;
+			case "half_points":
+				GameManager.instance.pointMultiplier = .5f;
+				break;
+			default:
+				Debug.LogWarning($"Modifier's start function has not been implemented! (ID: {id})");
+				break;
+		}
+	}
+	public void HandleModifierEnd(string id)
+	{
+		switch (id)
+		{
+			//good modifiers
+			case "two_hits":
+				DebrisManager.instance.maxFlicks = 1;
+				break;
+			case "jolly_joker":
+				break;
+			case "double_points":
+				GameManager.instance.pointMultiplier = 1f;
+				break;
+			case "no_collision":
+				DebrisManager.instance.ToggleNoCollide(false);
+				break;
+			//bad modifiers
+			case "time_speed":
+				GameManager.instance.timeMultipliers.Remove(2f);
+				break;
+			case "mono_vision":
+				break;
+			case "half_points":
+				GameManager.instance.pointMultiplier = 1f;
+				break;
+			default:
+				Debug.LogWarning($"Modifier's end function has not been implemented! (ID: {id})");
+				break;
+		}
 	}
 }

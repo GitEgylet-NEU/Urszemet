@@ -29,6 +29,9 @@ public class DebrisManager : MonoBehaviour
 	public GameObject linePrefab;
 	public List<Debris> debrisList;
 	List<Drag> drags;
+	public int maxFlicks = 1;
+
+	public bool noCollide = false;
 
 	public bool CanSpawnSD { get; private set; } = true;
 
@@ -58,6 +61,16 @@ public class DebrisManager : MonoBehaviour
 		CanSpawnSD = !debrisList.Any(d => d.type == Debris.DebrisType.SpecialBad || d.type == Debris.DebrisType.SpecialGood);
 	}
 
+	public void ToggleNoCollide(bool enabled)
+	{
+		noCollide = enabled;
+		foreach (Debris d in debrisList)
+		{
+			if (d.IsSpecial) continue;
+			d.GetComponent<Rigidbody2D>().excludeLayers = enabled ? LayerMask.GetMask("AffectedByNoCollide") : ~0;
+		}
+	}
+
 	void HandleTouches()
 	{
 		for (int i = 0; i < Input.touchCount; i++)
@@ -69,7 +82,7 @@ public class DebrisManager : MonoBehaviour
 				Vector2 pos = Camera.main.ScreenToWorldPoint(touch.position);
 				foreach (var debris in debrisList)
 				{
-					if (debris.flicked) continue;
+					if (debris.flicked == -1 || debris.flicked >= maxFlicks) continue;
 					Collider2D c = debris.GetComponent<Collider2D>();
 					if (c.OverlapPoint(pos))
 					{
@@ -82,7 +95,7 @@ public class DebrisManager : MonoBehaviour
 						Drag drag = new(debris, pos, pos, i, line);
 						drags.Add(drag);
 
-						debris.flicked = true;
+						debris.flicked++;
 						break;
 					}
 				}

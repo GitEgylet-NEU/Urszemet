@@ -49,12 +49,9 @@ public sealed class UIManager : MonoBehaviour
 		{
 			strikeHolder.GetChild(i).GetComponent<Image>().sprite = i >= GameManager.instance.strikes ? emptyStrike : fullStrike;
 		}
-
-		//stop time if info panel is shown
-		Time.timeScale = IsInfoPanelActive ? 0f : 1f;
 	}
 
-	public void AddModifier(ModifierManager.Modifier modifier)
+	public void AddModifier(Modifier modifier)
 	{
 		GameObject obj = Instantiate(modifierList.GetChild(0), modifierList).gameObject;
 		obj.name = modifier.id;
@@ -69,12 +66,13 @@ public sealed class UIManager : MonoBehaviour
 			ModifierManager.instance.hasSeenModifier[modifier.id] = true;
 		}
 
-		StartCoroutine(RemoveModifier(obj, modifier.duration));
+		StartCoroutine(RemoveModifier(obj, modifier.duration, modifier.id));
 	}
-	IEnumerator RemoveModifier(GameObject obj, float time)
+	IEnumerator RemoveModifier(GameObject obj, float time, string id)
 	{
 		yield return new WaitForSeconds(time);
 		Destroy(obj);
+		ModifierManager.instance.HandleModifierEnd(id);
 	}
 
 	public void AddInfoPanelToQueue(string title, string text, Sprite image = null, string buttonText = "OK")
@@ -99,6 +97,7 @@ public sealed class UIManager : MonoBehaviour
 	public void CloseInfoPanel()
 	{
 		infoPanel.gameObject.SetActive(false);
+		GameManager.instance.paused = false;
 		StartCoroutine(ShowNextInfoPanel(.4f));
 	}
 	IEnumerator ShowNextInfoPanel(float delay)
@@ -117,6 +116,7 @@ public sealed class UIManager : MonoBehaviour
 		{
 			Debug.LogWarning("There are no entries in infoPanelQueue!");
 			infoPanel.gameObject.SetActive(false);
+			GameManager.instance.paused = false;
 			return;
 		}
 
@@ -131,6 +131,7 @@ public sealed class UIManager : MonoBehaviour
 		}
 
 		infoPanel.gameObject.SetActive(true);
+		GameManager.instance.paused = true;
 	}
 
 	public struct InfoPanelData

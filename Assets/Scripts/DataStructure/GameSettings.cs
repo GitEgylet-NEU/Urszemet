@@ -1,11 +1,9 @@
 using GitEgylet.Utilities;
-using NohaSoftware.Utilities;
 using System.Collections.Generic;
-using System.Collections.Specialized;
 using System.Linq;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Game Settings")]
+[CreateAssetMenu(menuName = "Game Data/Game Settings")]
 public class GameSettings : ScriptableObject
 {
 	[Header("Debris")]
@@ -24,6 +22,7 @@ public class GameSettings : ScriptableObject
 	[Header("Random Events")]
 	public MinMaxRange eventSpawnInterval;
 	public RandomEventData[] randomEventData;
+	public ModifierSettings modifierSettings;
 
 	public Sprite GetRandomSprite(Debris.DebrisType debrisType)
 	{
