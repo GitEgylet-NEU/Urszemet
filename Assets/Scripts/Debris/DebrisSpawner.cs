@@ -4,6 +4,12 @@ using UnityEngine;
 
 public class DebrisSpawner : MonoBehaviour
 {
+	public static DebrisSpawner instance;
+	private void Awake()
+	{
+		instance = this;
+	}
+
 	public float spawnAreaDistance;
 	Rect spawnArea;
 	Rect spawnAreaSD, playArea;
@@ -11,9 +17,6 @@ public class DebrisSpawner : MonoBehaviour
 	[Header("Spawn Rates")]
 	public MinMaxRange spawnRate;
 	float lastSpawn = 0f, nextSpawn = 0f;
-	public MinMaxRange spawnRateSDG, spawnRateSDB;
-	float lastSpawnSDG = 0f, nextSpawnSDG = 0f;
-	float lastSpawnSDB = 0f, nextSpawnSDB = 0f;
 
 	public int baseSpawnLimit = 10;
 	public int spawnLimitChange = 3;
@@ -35,9 +38,6 @@ public class DebrisSpawner : MonoBehaviour
 		Vector2 corner3 = Camera.main.ScreenToWorldPoint(new Vector2(Camera.main.pixelWidth, Camera.main.pixelHeight));
 		spawnAreaSD = new Rect(corner1.x - 4f, corner1.y - 4f, corner3.x - corner1.x, (corner3.y - corner1.y) + 8f);
 		playArea = new Rect(corner1.x, corner1.y, corner3.x - corner1.x, corner3.y - corner1.y);
-
-		nextSpawnSDG = spawnRateSDG.Get();
-		nextSpawnSDB = spawnRateSDB.Get();
 	}
 
 	void Update()
@@ -52,25 +52,11 @@ public class DebrisSpawner : MonoBehaviour
 				SpawnDebris(query.Value);
 			}	
 		}
-		if (lastSpawnSDG >= nextSpawnSDG && DebrisManager.instance.CanSpawnSD || Input.GetKeyDown(KeyCode.G))
-		{
-			lastSpawnSDG = 0f;
-			nextSpawnSDG = spawnRateSDG.Get();
-			SpawnSpecialDebris(true);
-		}
-		else if (lastSpawnSDB >= nextSpawnSDB && DebrisManager.instance.CanSpawnSD)
-		{
-			lastSpawnSDB = 0f;
-			nextSpawnSDB = spawnRateSDB.Get();
-			SpawnSpecialDebris(false);
-		}
 
 		lastSpawn += Time.deltaTime;
-		lastSpawnSDG += Time.deltaTime;
-		lastSpawnSDB += Time.deltaTime;
 
 		spawnLimit = baseSpawnLimit + spawnLimitChange * Mathf.FloorToInt(Time.time / spawnLimitChangeInterval);
-		Debug.Log($"{DebrisManager.instance.debrisList.Count}/{spawnLimit}");
+		//Debug.Log($"{DebrisManager.instance.debrisList.Count}/{spawnLimit}");
 	}
 
 	void SpawnDebris(Vector2 position)
@@ -94,7 +80,7 @@ public class DebrisSpawner : MonoBehaviour
 		rb.angularVelocity = spawnAngularVelocity.Get();
 	}
 
-	void SpawnSpecialDebris(bool good)
+	public void SpawnSpecialDebris(bool good)
 	{
 		GameObject prefab = good ? GameManager.instance.gameSettings.goodSDPrefab : GameManager.instance.gameSettings.badSDPrefab;
 		Vector2 pos1 = GetRandomPointForSD();
