@@ -1646,7 +1646,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   deleteDistance: 7
   linePrefab: {fileID: 7573357059395208487, guid: 805640de8ce8c8f4e812b63f481a5110, type: 3}
+  dragCirclePrefab: {fileID: 6360642404216050722, guid: 7f4bd0dc69cfa5c408c5dd4742cc3cc2, type: 3}
   debrisList: []
+  maxFlicks: 1
+  minFlickDistance: 0.5
+  maxFlickDistance: 2
+  noCollide: 0
 --- !u!4 &810245192
 Transform:
   m_ObjectHideFlags: 0
@@ -2935,7 +2940,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameSettings: {fileID: 11400000, guid: 125aeea4cdbeaf6419de569c34b10c09, type: 2}
+  paused: 0
+  timeMultipliers:
+  - 1
   counter: 0
+  pointMultiplier: 1
   points: 0
   strikes: 3
   binCapacity: 0
@@ -2987,21 +2996,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0db26b1226688c14fa9825cf5e7c1f9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  modifiers:
-  - id: test_good
-    good: 1
-    name: Good Test
-    description: yipeeeeeee
-    icon: {fileID: 21300000, guid: 3c589911bd184a2479a5495a33d5f921, type: 3}
-    duration: 10
-    rarity: 1
-  - id: test_bad
-    good: 0
-    name: Bad Test
-    description: grrrr
-    icon: {fileID: 21300000, guid: 86873f5b14e5037439fcaf1e3513fd65, type: 3}
-    duration: 5
-    rarity: 1
 --- !u!114 &1709109090
 MonoBehaviour:
   m_ObjectHideFlags: 0

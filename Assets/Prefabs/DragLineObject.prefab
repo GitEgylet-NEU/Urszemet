@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3874749830910847861}
   - component: {fileID: 436284553125058662}
   m_Layer: 0
-  m_Name: LineObject
+  m_Name: DragLineObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 public class DebrisManager : MonoBehaviour
@@ -13,13 +12,15 @@ public class DebrisManager : MonoBehaviour
 		public Vector2 startPos, currentPos;
 		public int touch;
 		public LineRenderer line;
-		public Drag(Debris debris, Vector2 startPos, Vector2 currentPos, int touch, LineRenderer line)
+		public GameObject circle;
+		public Drag(Debris debris, Vector2 startPos, Vector2 currentPos, int touch, LineRenderer line, GameObject circle)
 		{
 			this.debris = debris;
 			this.startPos = startPos;
 			this.currentPos = currentPos;
 			this.touch = touch;
 			this.line = line;
+			this.circle = circle;
 		}
 	}
 
@@ -27,13 +28,13 @@ public class DebrisManager : MonoBehaviour
 	Rect deleteBounds;
 
 	public GameObject linePrefab;
+	[SerializeField] GameObject dragCirclePrefab;
 	public List<Debris> debrisList;
 	List<Drag> drags;
-	public int maxFlicks = 1;
-
-	public bool noCollide = false;
-
-	public bool CanSpawnSD { get; private set; } = true;
+	[HideInInspector] public int maxFlicks = 1;
+	[SerializeField] float minFlickDistance;
+	[SerializeField] float maxFlickDistance;
+	[HideInInspector] public bool noCollide = false;
 
 	private void Awake()
 	{
@@ -57,8 +58,6 @@ public class DebrisManager : MonoBehaviour
 		HandleDrags();
 
 		RemoveClutter();
-
-		CanSpawnSD = !debrisList.Any(d => d.type == Debris.DebrisType.SpecialBad || d.type == Debris.DebrisType.SpecialGood);
 	}
 
 	public void ToggleNoCollide(bool enabled)
@@ -92,10 +91,12 @@ public class DebrisManager : MonoBehaviour
 						line.SetPosition(1, pos);
 						line.enabled = true;
 
-						Drag drag = new(debris, pos, pos, i, line);
-						drags.Add(drag);
+						GameObject circle = Instantiate(dragCirclePrefab, transform);
+						circle.transform.localScale = minFlickDistance * 2f * Vector3.one;
+						circle.transform.position = pos;
 
-						debris.flicked++;
+						Drag drag = new(debris, pos, pos, i, line, circle);
+						drags.Add(drag);
 						break;
 					}
 				}
@@ -127,7 +128,11 @@ public class DebrisManager : MonoBehaviour
 				case TouchPhase.Moved or TouchPhase.Stationary:
 					drag.currentPos = pos;
 					drag.line.SetPosition(0, drag.debris.transform.position);
-					drag.line.SetPosition(1, (Vector2)drag.debris.transform.position + (drag.currentPos - drag.startPos));
+					Vector2 diff = drag.currentPos - drag.startPos;
+					if (diff.sqrMagnitude > maxFlickDistance * maxFlickDistance)
+						drag.line.SetPosition(1, (Vector2)drag.debris.transform.position - (maxFlickDistance * diff.normalized));
+					else
+						drag.line.SetPosition(1, (Vector2)drag.debris.transform.position - diff);
 					break;
 				case TouchPhase.Ended:
 					remove.Add(drag);
@@ -140,8 +145,19 @@ public class DebrisManager : MonoBehaviour
 
 	void EndDrag(Drag drag)
 	{
-		Destroy(drag.line);
-		drag.debris.GetComponent<Rigidbody2D>().AddForce(drag.currentPos - drag.startPos, ForceMode2D.Impulse);
+		Destroy(drag.line.gameObject);
+		Destroy(drag.circle);
+
+		Vector2 diff = drag.currentPos - drag.startPos;
+		if (diff.sqrMagnitude > minFlickDistance * minFlickDistance)
+		{
+			if (diff.sqrMagnitude > maxFlickDistance * maxFlickDistance)
+				drag.debris.GetComponent<Rigidbody2D>().AddForce(-(maxFlickDistance * diff.normalized), ForceMode2D.Impulse);
+			else
+				drag.debris.GetComponent<Rigidbody2D>().AddForce(-diff, ForceMode2D.Impulse);
+			drag.debris.flicked++;
+		}
+
 		drags.Remove(drag);
 	}
 
