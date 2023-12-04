@@ -20,7 +20,7 @@ public class Bin : MonoBehaviour
 		{
 			if (shouldCount)
 			{
-				if (debris.type == type)
+				if (debris.type == type || UIManager.instance.swapper.jollyJoker)
 				{
 					GameManager.instance.counter += 1 * GameManager.instance.pointMultiplier;
 				}

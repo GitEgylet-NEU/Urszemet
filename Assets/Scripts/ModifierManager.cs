@@ -31,8 +31,8 @@ public class ModifierManager : MonoBehaviour
 
 	private void Update()
 	{
-		if (Input.GetKeyDown(KeyCode.O)) HandleModifierStart("two_hits");
-		else if (Input.GetKeyDown(KeyCode.L)) HandleModifierEnd("two_hits");
+		if (Input.GetKeyDown(KeyCode.O)) HandleModifierStart("jolly_joker");
+		else if (Input.GetKeyDown(KeyCode.L)) HandleModifierEnd("jolly_joker");
 	}
 
 	public string ActivateRandomModifier(bool good)
@@ -95,6 +95,7 @@ public class ModifierManager : MonoBehaviour
 				DebrisManager.instance.maxFlicks = 2;
 				break;
 			case "jolly_joker":
+				UIManager.instance.swapper.ToggleJoker(true);
 				break;
 			case "double_points":
 				GameManager.instance.pointMultiplier = 2f;
@@ -125,6 +126,7 @@ public class ModifierManager : MonoBehaviour
 				DebrisManager.instance.maxFlicks = 1;
 				break;
 			case "jolly_joker":
+				UIManager.instance.swapper.ToggleJoker(false);
 				break;
 			case "double_points":
 				GameManager.instance.pointMultiplier = 1f;

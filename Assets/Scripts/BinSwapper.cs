@@ -12,6 +12,7 @@ public sealed class BinSwapper : MonoBehaviour
 	public GameObject binPrefab;
 	public int binCount = 3;
 	public List<Bin> bins;
+	[HideInInspector] public bool jollyJoker = false;
 
 	[Header("Bin Rotation")]
 	public Button upButton;
@@ -53,6 +54,26 @@ public sealed class BinSwapper : MonoBehaviour
 	{
 		Gizmos.color = Color.yellow;
 		Gizmos.DrawLineStrip(new System.ReadOnlySpan<Vector3>(new Vector3[] { new Vector2(binArea.x, binArea.y), new Vector2(binArea.x, binArea.y + binArea.height), new Vector2(binArea.x + binArea.width, binArea.y + binArea.height), new Vector2(binArea.x + binArea.width, binArea.y) }), true);
+	}
+
+	public void ToggleJoker(bool enabled)
+	{
+		if (enabled)
+		{
+			canRotateUp = false;
+			canRotateDown = false;
+			binCount = 1;
+			firstBin = 0;
+			ShowBins(new Debris.DebrisType[] { Debris.DebrisType.Communal });
+		}
+		else
+		{
+			canRotateUp = true;
+			canRotateDown = true;
+			binCount = 3;
+			Setup();
+		}
+		jollyJoker = enabled;
 	}
 
 	void Setup()
