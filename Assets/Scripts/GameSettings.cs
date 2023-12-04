@@ -1,4 +1,7 @@
+using GitEgylet.Utilities;
+using NohaSoftware.Utilities;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Linq;
 using UnityEngine;
 
@@ -17,6 +20,10 @@ public class GameSettings : ScriptableObject
 
 	[Header("Gameplay")]
 	public int defaultBinCapacity = 25;
+
+	[Header("Random Events")]
+	public MinMaxRange eventSpawnInterval;
+	public RandomEventData[] randomEventData;
 
 	public Sprite GetRandomSprite(Debris.DebrisType debrisType)
 	{
@@ -37,6 +44,25 @@ public class GameSettings : ScriptableObject
 		return data.shouldCount;
 	}
 
+	/// <param name="exclude">IDs of events to exclude</param>
+	/// <returns>ID of RandomEventData or null if no events meet the criteria.</returns>
+	public string GetRandomEvent(params string[] exclude)
+	{
+		float sum = randomEventData.Where(x => !exclude.Contains(x.ID)).Select(x => x.spawnChance).Sum();
+		float random = Random.Range(0, sum);
+		float a = 0;
+		foreach (var item in randomEventData)
+		{
+			if (random > a && random <= a + item.spawnChance) return item.ID;
+			else a += item.spawnChance;
+		}
+		return null;
+	}
+	public RandomEventData FetchRandomEventData(string ID)
+	{
+		return randomEventData.Where(x => x.ID == ID).FirstOrDefault();
+	}
+
 	[System.Serializable]
 	public class DebrisTypeData
 	{
@@ -47,6 +73,14 @@ public class GameSettings : ScriptableObject
 		public bool shouldCount = true;
 
 		public Sprite[] sprites;
+	}
+
+	[System.Serializable]
+	public class RandomEventData
+	{
+		public string ID;
+		public float spawnChance;
+		public MinMaxRange duration;
 	}
 }
 public static class DebrisTypeDataExtensions

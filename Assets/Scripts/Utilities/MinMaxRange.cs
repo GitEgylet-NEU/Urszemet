@@ -17,7 +17,8 @@ namespace GitEgylet.Utilities
 
 		public float Get()
 		{
-			return Random.Range(min, max);
+			if (min == max) return max;
+			else return Random.Range(min, max);
 		}
 	}
 

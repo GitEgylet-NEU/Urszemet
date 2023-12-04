@@ -55,3 +55,17 @@ MonoBehaviour:
   badSDPrefab: {fileID: 519101710274698116, guid: 51ee0981289f680488c021b913c4c77b, type: 3}
   minSDDistance: 5
   defaultBinCapacity: 25
+  eventSpawnInterval:
+    min: 5
+    max: 10
+  randomEventData:
+  - ID: powerup_good
+    spawnChance: 1
+    duration:
+      min: 0
+      max: 0
+  - ID: powerup_bad
+    spawnChance: 0.75
+    duration:
+      min: 0
+      max: 0
