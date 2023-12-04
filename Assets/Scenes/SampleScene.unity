@@ -1442,6 +1442,7 @@ MonoBehaviour:
   binPrefab: {fileID: 195667351947378506, guid: 300de37274ab1ec4f95937c02ac44611, type: 3}
   binCount: 3
   bins: []
+  jollyJoker: 0
   upButton: {fileID: 175665287}
   downButton: {fileID: 535219445}
   canRotateUp: 1
@@ -3018,6 +3019,10 @@ MonoBehaviour:
     duration:
       min: 0
       max: 0
+    doPopUp: 1
+    name: 
+    description: 
+    icon: {fileID: 0}
   timeRemaining: 0
   canEndEvent: 1
 --- !u!1 &1722536441

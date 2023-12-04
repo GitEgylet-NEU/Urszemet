@@ -34,7 +34,7 @@ public class Debris : MonoBehaviour
 			Destroy(c);
 			c = GetComponent<PolygonCollider2D>();
 		}
-		if (!IsSpecial) rb.excludeLayers = DebrisManager.instance.noCollide ? LayerMask.GetMask("AffectedByNoCollide") : ~0;
+		if (!IsSpecial) rb.excludeLayers = DebrisManager.instance.noCollide ? LayerMask.GetMask("AffectedByNoCollide") : LayerMask.GetMask();
 	}
 	private void OnCollisionEnter2D(Collision2D collision)
 	{

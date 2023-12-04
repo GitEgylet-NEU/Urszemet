@@ -80,6 +80,18 @@ public class DebrisSpawner : MonoBehaviour
 		rb.angularVelocity = spawnAngularVelocity.Get();
 	}
 
+	public GameObject SpawnObject(GameObject prefab, bool outside)
+	{
+		Vector2 pos = outside ? GetRandomPointForSD() : GetRandomPoint().Value;
+		GameObject obj = Instantiate(prefab, transform);
+		obj.transform.position = pos;
+		if (obj.TryGetComponent(out Rigidbody2D rb))
+		{
+			//move to the middle of screen
+			rb.AddForce(Vector2.zero - pos, ForceMode2D.Impulse);
+		}
+		return obj;
+	}
 	public void SpawnSpecialDebris(bool good)
 	{
 		GameObject prefab = good ? GameManager.instance.gameSettings.goodSDPrefab : GameManager.instance.gameSettings.badSDPrefab;

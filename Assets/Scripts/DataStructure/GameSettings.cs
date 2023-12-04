@@ -23,6 +23,7 @@ public class GameSettings : ScriptableObject
 	public MinMaxRange eventSpawnInterval;
 	public RandomEventData[] randomEventData;
 	public ModifierSettings modifierSettings;
+	public GameObject blackHolePrefab;
 
 	public Sprite GetRandomSprite(Debris.DebrisType debrisType)
 	{
@@ -80,6 +81,10 @@ public class GameSettings : ScriptableObject
 		public string ID;
 		public float spawnChance;
 		public MinMaxRange duration;
+		public bool doPopUp = true;
+		public string name;
+		public string description;
+		public Sprite icon;
 	}
 }
 public static class DebrisTypeDataExtensions

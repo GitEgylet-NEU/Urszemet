@@ -66,7 +66,7 @@ public class DebrisManager : MonoBehaviour
 		foreach (Debris d in debrisList)
 		{
 			if (d.IsSpecial) continue;
-			d.GetComponent<Rigidbody2D>().excludeLayers = enabled ? LayerMask.GetMask("AffectedByNoCollide") : ~0;
+			d.GetComponent<Rigidbody2D>().excludeLayers = enabled ? LayerMask.GetMask("AffectedByNoCollide") : LayerMask.GetMask();
 		}
 	}
 

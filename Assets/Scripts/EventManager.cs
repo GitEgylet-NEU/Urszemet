@@ -1,4 +1,6 @@
+using System.Collections;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 public class EventManager : MonoBehaviour
@@ -74,9 +76,25 @@ public class EventManager : MonoBehaviour
 				DebrisSpawner.instance.SpawnSpecialDebris(false);
 				canEndEvent = false;
 				break;
+			case "gravity_anomaly":
+				var obj = DebrisSpawner.instance.SpawnObject(GameManager.instance.gameSettings.blackHolePrefab, true);
+				canEndEvent = false;
+				StartCoroutine(EndGravityEvent());
+				IEnumerator EndGravityEvent()
+				{
+					yield return new WaitUntil(() => Vector2.Distance(obj.transform.position, Vector2.zero) / 4f >= DebrisManager.instance.deleteDistance + 0.1f);
+					Destroy(obj);
+					canEndEvent = true;
+				}
+				break;
 			default:
 				canEndEvent = true;
 				break;
+		}
+
+		if (currentEvent.doPopUp)
+		{
+			UIManager.instance.AddInfoPanelToQueue(currentEvent.name, currentEvent.description, currentEvent.icon);
 		}
 
 		Debug.Log("Started " + currentEvent.ID + $" ({timeRemaining}s)");
