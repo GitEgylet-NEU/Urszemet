@@ -25,6 +25,9 @@ public class GameSettings : ScriptableObject
 	public ModifierSettings modifierSettings;
 	public GameObject blackHolePrefab;
 
+	[Header("Shop & Items")]
+	public ShopItemData[] shopItemData;
+
 	public Sprite GetRandomSprite(Debris.DebrisType debrisType)
 	{
 		DebrisTypeData data = debrisTypeData.GetData(debrisType);
