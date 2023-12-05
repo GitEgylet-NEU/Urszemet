@@ -66,6 +66,11 @@ public class GameSettings : ScriptableObject
 		return randomEventData.Where(x => x.ID == ID).FirstOrDefault();
 	}
 
+	public ShopItemData GetShopItemData(string ID)
+	{
+		return shopItemData.Where(x => x.id == ID).FirstOrDefault();
+	}
+
 	[System.Serializable]
 	public class DebrisTypeData
 	{

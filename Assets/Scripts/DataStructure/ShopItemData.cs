@@ -10,6 +10,7 @@ public class ShopItemData : ScriptableObject
 	public ItemType type;
 
 	public bool showInShop = true;
+	public float price;
 
 	//TODO:
 	public string[] prerequisites;
@@ -19,5 +20,16 @@ public class ShopItemData : ScriptableObject
 		Default = 0,
 		PowerUp = 1,
 		Ability = 2
+	}
+
+	public string GetLocalisedType()
+	{
+		switch (type)
+		{
+			case ItemType.Default: return "Általános";
+			case ItemType.PowerUp: return "Powerup";
+			case ItemType.Ability: return "Képesség";
+			default: return type.ToString();
+		}
 	}
 }

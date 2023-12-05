@@ -1,6 +1,9 @@
 using NohaSoftware.Utilities;
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,53 +13,91 @@ public class ShopMenu : MonoBehaviour
 	private void Awake()
 	{
 		instance = this;
-
-		shopItemObjectPrefab = transform.GetChild(0).gameObject;
-		shopItemObjectPrefab.SetActive(false);
 	}
 
-	GameObject shopItemObjectPrefab;
-	ShopItemData[] items;
-	List<ShopItemObject> shopItemObjects = new();
+	public string selectedID = null;
+	public GameSettings gameSettings;
 
-	private void OnEnable()
+	ShopItemObject[] itemObjects;
+
+	[Header("UI")]
+	[SerializeField] TMP_Dropdown itemTypeSelector;
+	[SerializeField] RectTransform itemGrid;
+	GameObject itemObjectPrefab;
+	[Space]
+	[SerializeField] RectTransform itemDetailPanel;
+	[SerializeField] TextMeshProUGUI itemNameText;
+	[SerializeField] TextMeshProUGUI itemTypeText;
+	[SerializeField] TextMeshProUGUI itemPriceText;
+	[SerializeField] TextMeshProUGUI itemDurationText;
+	[SerializeField] TextMeshProUGUI itemDescriptionText;
+	[SerializeField] TextMeshProUGUI itemQuantityText;
+	[SerializeField] Image itemIconImage;
+
+	private void Start()
 	{
-		foreach (var obj in shopItemObjects)
-		{
-			Destroy(obj.gameObject);
-		}
-		shopItemObjects.Clear();
+		itemObjectPrefab = itemGrid.GetChild(0).gameObject;
+		itemObjectPrefab.SetActive(false);
 
-		items = GameManager.instance.gameSettings.shopItemData.Where(x => x.showInShop).ToArray();
-		foreach (var item in items)
-		{
-			GameObject obj = Instantiate(shopItemObjectPrefab, transform);
-			obj.name = item.name;
-			ShopItemObject menuBuilding = obj.GetComponent<ShopItemObject>();
-			menuBuilding.SetData(item);
-			shopItemObjects.Add(menuBuilding);
-		}
-
-		CalculateHeight();
+		Initialise();
 	}
 
-	void CalculateHeight()
+	void Initialise()
 	{
-		float height = 0;
-		if (items.Length > 0)
+		var items = gameSettings.shopItemData.Where(i => i.showInShop).ToArray();
+		itemObjects = new ShopItemObject[items.Length];
+		for (int i = 0; i < items.Length; i++)
 		{
-			height = 25f + Mathf.Ceil(shopItemObjects.Count / 2f) * (200f + 25f);
+			var obj = Instantiate(itemObjectPrefab, itemGrid);
+			itemObjects[i] = obj.GetComponent<ShopItemObject>();
+			itemObjects[i].SetData(items[i].id);
+			obj.SetActive(true);
 		}
-		GetComponent<RectTransform>().SetHeight(height);
+		itemDetailPanel.gameObject.SetActive(false);
+		itemGrid.SetHeight(CalculateHeight());
 	}
 
-	public void CloseMenu(GameObject menu)
+	public void Select(string id)
 	{
-		if (ShopItemObject.previouslySelected != null)
+		if (!string.IsNullOrEmpty(selectedID))
 		{
-			ShopItemObject.previouslySelected.GetComponent<Image>().color = new Color(0, 0, 0, 0.2F);
-			ShopItemObject.previouslySelected = null;
+			itemObjects.Where(x => x.itemDataID == selectedID).FirstOrDefault().Deselect();
 		}
-		menu.SetActive(false);
+
+		selectedID = id;
+		
+		var data = gameSettings.GetShopItemData(id);
+		if (data == null)
+		{
+			Debug.LogWarning($"Can't retrieve ShopItemData {id} from GameSettings");
+			return;
+		}
+
+		itemNameText.text = data.displayName;
+		itemTypeText.text = $"<b>Típus</b>: {data.GetLocalisedType()}";
+		itemPriceText.text = $"<b>Ár</b>: {data.price}";
+		itemDurationText.text = string.Empty; //TODO
+		itemDescriptionText.text = data.description;
+		itemQuantityText.text = string.Empty; // TODO
+		itemIconImage.sprite = data.icon;
+
+		itemDetailPanel.gameObject.SetActive(true);
+	}
+	public void Deselect()
+	{
+		selectedID = null;
+		itemDetailPanel.gameObject.SetActive(false);
+	}
+
+	public void Buy()
+	{
+		throw new NotImplementedException("you lazy bitch");
+	}
+
+	float CalculateHeight()
+	{
+		float height = 25f;
+		height += Mathf.CeilToInt(itemObjects.Length / 2f) * 225f;
+		return height;
 	}
 }

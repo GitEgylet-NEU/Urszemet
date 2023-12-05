@@ -90,3 +90,6 @@ MonoBehaviour:
     icon: {fileID: 21300000, guid: aa8565241effbc44399eeda5faf0cee2, type: 3}
   modifierSettings: {fileID: 11400000, guid: d5f7e58dad2d21841995f82a38546555, type: 2}
   blackHolePrefab: {fileID: 1692688026421648874, guid: cc831721b8c8fb64a916cc2eed1f8b56, type: 3}
+  shopItemData:
+  - {fileID: 11400000, guid: 1e415a2896d2d8b4788d0d3f77cf1418, type: 2}
+  - {fileID: 11400000, guid: 499fd7e55ebe14f4d97f7e642a4d0ce1, type: 2}

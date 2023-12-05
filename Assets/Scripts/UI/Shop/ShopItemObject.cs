@@ -1,76 +1,57 @@
-using UnityEngine.UI;
-using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;
 using TMPro;
+using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class ShopItemObject : MonoBehaviour
 {
-	[SerializeField] Image itemIcon;
-	[SerializeField] TextMeshProUGUI itemNameText;
-	public ShopItemData shopItemData { get; private set; }
+	public TextMeshProUGUI nameText;
+	public Image iconImage;
+	public string itemDataID;
+	ShopItemData itemData;
 
-	static public ShopItemData selectedItem;
-	static public GameObject previouslySelected;
-	Color orange = new Color(1, 0.75F, 0.015F, 0.5F);
-	Color defaultColor = new Color(0, 0, 0, 0.2F);
+	bool isSelected;
+	Color original;
+	Image img;
+	Button button;
 
-	private void OnEnable()
+	private void Awake()
 	{
-		UpdateInfo();
-		//PlayerController.instance.GetCurrentPlayer().onResourceChange?.RemoveListener(() => UpdateInfo());
-		//PlayerController.instance.GetCurrentPlayer().onResourceChange?.AddListener(() => UpdateInfo());
+		img = GetComponent<Image>();
+		original = img.color;
+		button = GetComponent<Button>();
 	}
 
-	public void SelectItem()
+	public void SetData(string id)
 	{
-		selectedItem = shopItemData;
-	}
-	void DeselectItem()
-	{
-		//if(selectedItem == shopItemData)
-		//{
-  //          RaycasterScript.wantsToConstruct = false;
-  //          Debug.Log("piss and cum");
-  //          gameObject.GetComponent<Image>().color = defaultColor;
-  //          if (RaycasterScript.previouslyHit != null) RaycasterScript.previouslyHit.GetComponent<MeshRenderer>().material.color = RaycasterScript.previousColor;
-  //          RaycasterScript.currentlyHit = null;
-  //          RaycasterScript.previouslyHit = null;
-  //          previouslySelected = null;
-  //      }
+		itemDataID = id;
+		itemData = ShopMenu.instance.gameSettings.GetShopItemData(itemDataID);
+		nameText.text = itemData.displayName;
+		iconImage.sprite = itemData.icon;
 	}
 
-	public void SetData(ShopItemData data)
+	public void OnClick()
 	{
-		this.shopItemData = data;
-		UpdateInfo();
-	}
-
-	public void UpdateInfo()
-	{
-		if (shopItemData == null) return;
-
-		if (shopItemData.icon != null)
+		if (isSelected)
 		{
-			itemIcon.sprite = shopItemData.icon;
-			itemIcon.gameObject.SetActive(true);
+			ShopMenu.instance.Deselect();
+			Deselect();
 		}
 		else
 		{
-			itemIcon.gameObject.SetActive(false);
+			ShopMenu.instance.Select(itemData.id);
+			img.color = Color.green;
+			isSelected = true;
 		}
+		
+	}
 
-		itemNameText.text = shopItemData.name;
-
-		//if (!shopItemData.CanBuild(PlayerController.instance.GetCurrentPlayer()))
-		//{
-		//	buildingIcon.color = Color.red;
-		//	GetComponent<Button>().interactable = false;
-
-		//	DeselectItem();
-		//}
-		//else
-		//{
-			itemIcon.color = Color.white;
-			GetComponent<Button>().interactable = true;
-		//}
+	public void Deselect()
+	{
+		img.color = original;
+		EventSystem.current.SetSelectedGameObject(null);
+		isSelected = false;
 	}
 }
