@@ -3,13 +3,13 @@
     <ui:VisualElement style="flex-grow: 1; flex-direction: row; justify-content: space-around; align-items: flex-start; margin-top: 10px; margin-right: 10px; margin-bottom: 10px; margin-left: 10px;">
         <ui:VisualElement name="VisualElement" style="flex-grow: 1; width: 600px; max-width: 600px; min-width: 600px; height: 100%; background-color: rgba(255, 0, 0, 0.66);" />
         <ui:VisualElement style="flex-direction: column; height: 100%; width: 200%;">
-            <ui:VisualElement name="VisualElement" style="flex-grow: 1; flex-direction: row; justify-content: space-around;">
-                <ui:Label tabindex="-1" text="Ship upgrades" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Label" />
+            <ui:VisualElement name="VisualElement" style="flex-grow: 1; flex-direction: row; justify-content: space-around; height: 90px; max-height: 90px; min-height: 90px;">
+                <ui:Label tabindex="-1" text="Ship upgrades" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Label" style="font-size: 10px;" />
                 <ui:Label tabindex="-1" text="Abilities" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Label" />
             </ui:VisualElement>
             <ui:VisualElement name="VisualElement" style="flex-grow: 1; flex-direction: row;">
                 <ui:VisualElement name="VisualElement" style="flex-grow: 1; width: 50%;">
-                    <ui:ScrollView focusable="false" vertical-scroller-visibility="Hidden" />
+                    <ui:VisualElement name="VisualElement" class="box" style="flex-grow: 1;" />
                 </ui:VisualElement>
                 <ui:VisualElement name="VisualElement" style="flex-grow: 1; width: 50%;" />
             </ui:VisualElement>
