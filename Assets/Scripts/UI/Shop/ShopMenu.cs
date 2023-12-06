@@ -23,6 +23,7 @@ public class ShopMenu : MonoBehaviour
 	[Header("UI")]
 	[SerializeField] TMP_Dropdown itemTypeSelector;
 	[SerializeField] RectTransform itemGrid;
+	[SerializeField] TextMeshProUGUI currencyText;
 	GameObject itemObjectPrefab;
 	[Space]
 	[SerializeField] RectTransform itemDetailPanel;
@@ -33,6 +34,7 @@ public class ShopMenu : MonoBehaviour
 	[SerializeField] TextMeshProUGUI itemDescriptionText;
 	[SerializeField] TextMeshProUGUI itemQuantityText;
 	[SerializeField] Image itemIconImage;
+	[SerializeField] Button buyButton;
 
 	private void Start()
 	{
@@ -40,6 +42,14 @@ public class ShopMenu : MonoBehaviour
 		itemObjectPrefab.SetActive(false);
 
 		Initialise();
+	}
+	private void Update()
+	{
+		if (Input.GetKeyDown(KeyCode.X))
+		{
+			InventoryManager.instance.AddCurrency(25f);
+			UpdateUI();
+		}
 	}
 
 	void Initialise()
@@ -55,6 +65,7 @@ public class ShopMenu : MonoBehaviour
 		}
 		itemDetailPanel.gameObject.SetActive(false);
 		itemGrid.SetHeight(CalculateHeight());
+		if (currencyText != null) currencyText.text = InventoryManager.instance.Currency.ToString("# ##0.0");
 	}
 
 	public void Select(string id)
@@ -65,21 +76,8 @@ public class ShopMenu : MonoBehaviour
 		}
 
 		selectedID = id;
-		
-		var data = gameSettings.GetShopItemData(id);
-		if (data == null)
-		{
-			Debug.LogWarning($"Can't retrieve ShopItemData {id} from GameSettings");
-			return;
-		}
 
-		itemNameText.text = data.displayName;
-		itemTypeText.text = $"<b>Típus</b>: {data.GetLocalisedType()}";
-		itemPriceText.text = $"<b>Ár</b>: {data.price}";
-		itemDurationText.text = string.Empty; //TODO
-		itemDescriptionText.text = data.description;
-		itemQuantityText.text = string.Empty; // TODO
-		itemIconImage.sprite = data.icon;
+		UpdateUI();
 
 		itemDetailPanel.gameObject.SetActive(true);
 	}
@@ -91,9 +89,34 @@ public class ShopMenu : MonoBehaviour
 
 	public void Buy()
 	{
-		throw new NotImplementedException("you lazy bitch");
+		InventoryManager.instance.SubtractCurrency(gameSettings.GetShopItemData(selectedID).price);
+		InventoryManager.instance.AddItem(selectedID, 1);
+		UpdateUI();
 	}
 
+	void UpdateUI()
+	{
+		var data = gameSettings.GetShopItemData(selectedID);
+		if (data == null)
+		{
+			Debug.LogWarning($"Can't retrieve ShopItemData {selectedID} from GameSettings");
+		}
+		else
+		{
+			itemNameText.text = data.displayName;
+			itemTypeText.text = $"<b>Típus</b>: {data.GetLocalisedType()}";
+			itemPriceText.text = $"<b>Ár</b>: {data.price}";
+			itemDurationText.text = string.Empty; //TODO
+			itemDescriptionText.text = data.description;
+			itemQuantityText.text = $"<b>{InventoryManager.instance.GetItem(selectedID)}db</b> a raktárban";
+			itemIconImage.sprite = data.icon;
+			itemIconImage.enabled = data.icon != null;
+
+			buyButton.interactable = InventoryManager.instance.CanAfford(data.price);
+		}
+
+		if (currencyText != null) currencyText.text = InventoryManager.instance.Currency.ToString("# ##0.0");
+	}
 	float CalculateHeight()
 	{
 		float height = 25f;
