@@ -1,15 +1,15 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/ui/manual.uss?fileID=7433441132597879392&amp;guid=d123fb9c32b1d0e4281754bee907f3b9&amp;type=3#manual" />
-    <ui:VisualElement style="flex-grow: 1; flex-direction: row; margin-left: 800px;">
+    <ui:VisualElement style="flex-grow: 1; flex-direction: row; margin-left: 720px;">
         <ui:VisualElement style="flex-grow: 1; flex-direction: row;">
-            <ui:VisualElement style="flex-grow: 1; width: 30%; justify-content: space-around;">
+            <ui:VisualElement style="flex-grow: 1; width: 30%; justify-content: space-around; margin-right: 15px;">
                 <ui:Button text="Abilities" parse-escape-sequences="true" display-tooltip-when-elided="true" />
                 <ui:Button text="Ship upgrades" parse-escape-sequences="true" display-tooltip-when-elided="true" />
                 <ui:Button text="Random events" parse-escape-sequences="true" display-tooltip-when-elided="true" />
             </ui:VisualElement>
             <ui:VisualElement style="flex-grow: 1; width: 70%;">
                 <ui:ScrollView>
-                    <ui:Foldout text="név" value="false">
+                    <ui:Foldout text="NÉV" value="false">
                         <ui:Label tabindex="-1" text="ajnféonaeőoinőaiwenvőoinwőevoinaőwknfwakenéclkanweéfonéwalebélskbévcklsbdéfkjbaéskjcnlekjclaksjbdlckjbsdlajkeblabecéobaéecibéasobdckjsdbcaljdbclkajsbdlckjbasldkj" parse-escape-sequences="true" display-tooltip-when-elided="true" style="flex-wrap: wrap; white-space: normal;" />
                     </ui:Foldout>
                     <ui:Foldout text="név" value="false">
