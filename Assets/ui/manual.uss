@@ -6,3 +6,7 @@
 .unity-foldout__checkmark {
     background-color: rgb(255, 255, 255);
 }
+
+.unity-button {
+    min-width: 300px;
+}
