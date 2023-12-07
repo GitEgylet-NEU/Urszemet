@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class MainMenuController : MonoBehaviour
+public class UIcontroller : MonoBehaviour
 {
 	// Start is called before the first frame update
 	public bool HoloActive = false;
@@ -34,7 +34,6 @@ public class MainMenuController : MonoBehaviour
 		//InClip.SetCurve("",typeof(RectTransform), "Position.x", curve);
 	}
 
-	// Update is called once per frame
 	void Update()
 	{
 	}
@@ -75,22 +74,24 @@ public class MainMenuController : MonoBehaviour
 		//    Debug.Log("Shop");
 		//}
 	}
-	//gombonyáskor meghív int button sorszámmal
+	//gombonyaskor meghiv int button sorszammal
 	public void HoloMove(int pressed)
 	{
 		if (pressed != ActiveTab)
 		{
-			//megnyitni animálva, nincs meg
+			//megnyitni animalva, nincs meg
 			if (ActiveTab == -1)
 			{
-				//animálás
-				HoloObject.GetComponent<RectTransform>().anchoredPosition = new Vector3(0, Screen.width, 0);
+
+				//animalas
+				//HoloObject.GetComponent<RectTransform>().anchoredPosition = new Vector3(0, Screen.width, 0);
+				HoloAnimator.SetBool("open", true);
 			}
 			else
 			{
 				UI[ActiveTab].SetActive(false);
 			}
-			// active ui window state megváltoztatása
+			// active ui window state megvaltoztatasa
 
 			UI[pressed].SetActive(true);
 			ActiveTab = pressed;
@@ -98,7 +99,8 @@ public class MainMenuController : MonoBehaviour
 		}
 		else
 		{
-			//újra megnyomja: bezáródik
+			//ujra megnyomja: bezarodik
+			HoloAnimator.SetBool("open", false);
 			UI[ActiveTab].SetActive(false);
 			ActiveTab = -1;
 		}
