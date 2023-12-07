@@ -25,7 +25,7 @@ public class InventoryManager : MonoBehaviour
 		else Currency = (float)query;
 
 		//create entries for abilities
-		foreach (var ability in GameManager.instance.gameSettings.modifierSettings.abilities) if (!Items.ContainsKey(ability.id)) Items.Add(ability.id, 0);
+		foreach (var ability in SaveManager.instance.gameSettings.modifierSettings.abilities) if (!Items.ContainsKey(ability.id)) Items.Add(ability.id, 0);
 
 		AddItem("waste_clear", 2);
 		AddItem("time_slow", 2);

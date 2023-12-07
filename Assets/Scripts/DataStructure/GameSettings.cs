@@ -29,6 +29,10 @@ public class GameSettings : ScriptableObject
 	[Header("Shop & Items")]
 	public ShopItemData[] shopItemData;
 
+	[Header("Saving")]
+	public string saveExtension;
+	[Tooltip("Relative to persistentDataPath")] public string savePath;
+
 	public Sprite GetRandomSprite(Debris.DebrisType debrisType)
 	{
 		DebrisTypeData data = debrisTypeData.GetData(debrisType);

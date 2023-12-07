@@ -105,3 +105,5 @@ MonoBehaviour:
   shopItemData:
   - {fileID: 11400000, guid: 1e415a2896d2d8b4788d0d3f77cf1418, type: 2}
   - {fileID: 11400000, guid: 499fd7e55ebe14f4d97f7e642a4d0ce1, type: 2}
+  saveExtension: main_save
+  savePath: sav
