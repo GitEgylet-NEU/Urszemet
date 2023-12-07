@@ -1,0 +1,107 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 554f11639f5f36b48b9f111fc033c269, type: 3}
+  m_Name: DefaultGameSettings
+  m_EditorClassIdentifier: 
+  debrisPrefab: {fileID: 7926378065607543001, guid: d3ada265137685d428592dd3311b65ba, type: 3}
+  debrisTypeData:
+  - debrisType: 0
+    displayName: "Kommun\xE1lis"
+    color: {r: 0.3018868, g: 0, b: 0, a: 1}
+    shouldSpawnBin: 1
+    shouldCount: 0
+    sprites:
+    - {fileID: 21300000, guid: 86873f5b14e5037439fcaf1e3513fd65, type: 3}
+  - debrisType: 1
+    displayName: "M\u0171anyag"
+    color: {r: 1, g: 0.875, b: 0.25, a: 1}
+    shouldSpawnBin: 1
+    shouldCount: 1
+    sprites:
+    - {fileID: 21300000, guid: 3acbb4480a3e99f49a2a9e18d8e60dc4, type: 3}
+  - debrisType: 2
+    displayName: "F\xE9m"
+    color: {r: 0.1851011, g: 0.1716358, b: 0.2735849, a: 1}
+    shouldSpawnBin: 1
+    shouldCount: 1
+    sprites:
+    - {fileID: 21300000, guid: 9a26c252c411e9f43b8184318ed48e05, type: 3}
+  - debrisType: 3
+    displayName: Elektronika
+    color: {r: 0.3443396, g: 1, b: 0.9696664, a: 1}
+    shouldSpawnBin: 1
+    shouldCount: 1
+    sprites:
+    - {fileID: 21300000, guid: c252d57f5d572d046afb2ffa27a9bfdf, type: 3}
+    - {fileID: 21300000, guid: 18dd64a3706fff94d8bfd7c36ca70972, type: 3}
+  - debrisType: 4
+    displayName: "\xDCveg"
+    color: {r: 0.5274538, g: 1, b: 0.34509802, a: 1}
+    shouldSpawnBin: 1
+    shouldCount: 1
+    sprites:
+    - {fileID: 21300000, guid: 884cfcc3836edb749add0fc50887d3c2, type: 3}
+  minDistance: 1
+  goodSDPrefab: {fileID: 7365716837782167407, guid: 038df3ed8419689479cb78ccb278382e, type: 3}
+  badSDPrefab: {fileID: 519101710274698116, guid: 51ee0981289f680488c021b913c4c77b, type: 3}
+  minSDDistance: 5
+  defaultBinCapacity: 25
+  eventSpawnInterval:
+    min: 5
+    max: 10
+  randomEventData:
+  - ID: powerup_good
+    spawnChance: 1
+    duration:
+      min: 0
+      max: 0
+    doPopUp: 0
+    name: 
+    description: 
+    icon: {fileID: 0}
+  - ID: powerup_bad
+    spawnChance: 0.75
+    duration:
+      min: 0
+      max: 0
+    doPopUp: 0
+    name: 
+    description: 
+    icon: {fileID: 0}
+  - ID: gravity_anomaly
+    spawnChance: 1
+    duration:
+      min: 0
+      max: 0
+    doPopUp: 1
+    name: "Gravit\xE1ci\xF3s anom\xE1lia"
+    description: "Egy miniat\u0171r fekete lyuk fog \xE1thaladni a j\xE1t\xE9kt\xE9ren.
+      B\xE1r nem el\xE9g nagy ahhoz, hogy elnyelje a szemeteket, mag\xE1hoz fogja
+      \u0151ket vonzani!"
+    icon: {fileID: 21300000, guid: aa8565241effbc44399eeda5faf0cee2, type: 3}
+  - ID: convoy
+    spawnChance: 1
+    duration:
+      min: 0
+      max: 0
+    doPopUp: 1
+    name: Konvoj
+    description: "Arra utas\xEDtottak, hogy tiszt\xEDtsd meg az utat egy \u0171rhaj\xF3konvoj
+      sz\xE1m\xE1ra. Vigy\xE1zz, mert az \u0171rszem\xE9t \xE1ltal okozott k\xE1rokat
+      neked kell kifizetned!"
+    icon: {fileID: 21300000, guid: 793cb71512c8f3e4fa01d438957a296a, type: 3}
+  blackHolePrefab: {fileID: 1692688026421648874, guid: cc831721b8c8fb64a916cc2eed1f8b56, type: 3}
+  convoyPrefab: {fileID: 5511895093645632949, guid: f1f3543fc3a4e114bb2ecc414bb03162, type: 3}
+  modifierSettings: {fileID: 11400000, guid: d5f7e58dad2d21841995f82a38546555, type: 2}
+  shopItemData:
+  - {fileID: 11400000, guid: 1e415a2896d2d8b4788d0d3f77cf1418, type: 2}
+  - {fileID: 11400000, guid: 499fd7e55ebe14f4d97f7e642a4d0ce1, type: 2}

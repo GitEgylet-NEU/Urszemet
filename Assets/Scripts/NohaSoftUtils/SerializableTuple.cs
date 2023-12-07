@@ -78,5 +78,14 @@ namespace NohaSoftware.Utilities
 		{
 			return serializableTuples.GetElement(key) != null;
 		}
+
+		public static IEnumerable<SerializableTuple<T1, T2>> SerializeDictionary<T1, T2>(this Dictionary<T1, T2> dictionary)
+		{
+			return dictionary.Select(pair => new SerializableTuple<T1, T2>(pair.Key, pair.Value));
+		}
+		public static Dictionary<T1, T2> DeserializeDictionary<T1, T2>(this IEnumerable<SerializableTuple<T1, T2>> serializedDictionary)
+		{
+			return serializedDictionary.ToDictionary(t => t.Key, t => t.Value);
+		}
 	}
 }

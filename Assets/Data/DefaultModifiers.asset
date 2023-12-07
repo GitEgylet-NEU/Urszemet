@@ -1,0 +1,87 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 16099384625477b4db63caa9fb5bddc3, type: 3}
+  m_Name: DefaultModifiers
+  m_EditorClassIdentifier: 
+  modifiers:
+  - id: two_hits
+    good: 1
+    name: "2x p\xF6ck\xF6l\xE9s"
+    description: "K\xE9tszer p\xF6ck\xF6lhetsz el minden szemetet."
+    icon: {fileID: 0}
+    duration: 10
+    rarity: 1
+  - id: jolly_joker
+    good: 1
+    name: Jolly Joker kuka
+    description: "A kuk\xE1id minden szemetet elfogadnak, nem j\xE1r pontlevon\xE1s
+      a helytelen szelekt\xE1l\xE1s\xE9rt."
+    icon: {fileID: 0}
+    duration: 10
+    rarity: 1
+  - id: double_points
+    good: 1
+    name: "2x pontsz\xE1m"
+    description: "Minden helyesen szelekt\xE1lt szem\xE9t k\xE9tszer annyi pontot
+      \xE9r sz\xE1modra, mint egy\xE9bk\xE9nt."
+    icon: {fileID: 0}
+    duration: 10
+    rarity: 1
+  - id: no_collision
+    good: 1
+    name: "F\xE1ziseltol\xE1s"
+    description: "A szemetek r\xF6vid id\u0151re k\xFCl\xF6nb\xF6z\u0151 f\xE1zisokba
+      ker\xFClnek, \xEDgy nem \xFCtk\xF6znek egym\xE1sba."
+    icon: {fileID: 0}
+    duration: 10
+    rarity: 1
+  - id: time_speed
+    good: 0
+    name: "Gyorsult id\u0151"
+    description: "Egy elromlott gravit\xE1ci\xF3s gener\xE1tort tal\xE1lt\xE1l, ami
+      r\xF6vid id\u0151re felgyors\xEDtja az id\u0151t. Figyelj oda a szemetekre!"
+    icon: {fileID: 0}
+    duration: 10
+    rarity: 1
+  - id: mono_vision
+    good: 0
+    name: "Szenzorblokkol\xE1s"
+    description: "Blokkolj\xE1k \u0171rhaj\xF3d szenzorait, \xEDgy egy id\u0151re
+      csak sz\xFCrke\xE1rnyalatosan fogsz l\xE1tni!"
+    icon: {fileID: 0}
+    duration: 0
+    rarity: 0
+  - id: half_points
+    good: 0
+    name: "Pontfelez\u0151"
+    description: "A k\xF6vetkez\u0151 szakasz szemetei kev\xE9sb\xE9 \xE9rt\xE9kesek,
+      mint a legt\xF6bb. \xC9ppen ez\xE9rt fele annyi pontot is kapsz \xE9rt\xFCk!"
+    icon: {fileID: 0}
+    duration: 10
+    rarity: 1
+  abilities:
+  - id: waste_clear
+    good: 0
+    name: "Szem\xE9t elt\xFCntet\u0151"
+    description: "Elt\u0171nteti az \xF6sszes szemetet a j\xE1t\xE9kt\xE9rr\u0151l."
+    icon: {fileID: 21300000, guid: 86873f5b14e5037439fcaf1e3513fd65, type: 3}
+    duration: 0
+    rarity: 0
+  - id: time_slow
+    good: 0
+    name: "Id\u0151lass\xEDt\xF3"
+    description: "Egy gravit\xE1ci\xF3s gener\xE1tor seg\xEDts\xE9g\xE9vel lelass\xEDtod
+      az id\u0151t, \xEDgy k\xF6nnyebb lesz p\xF6ck\xF6lni a szemeteket."
+    icon: {fileID: 21300000, guid: c252d57f5d572d046afb2ffa27a9bfdf, type: 3}
+    duration: 10
+    rarity: 0
+  abilityCooldown: 10

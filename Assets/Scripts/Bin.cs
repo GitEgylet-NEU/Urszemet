@@ -1,51 +1,37 @@
-using TMPro;
 using UnityEngine;
 
 [RequireComponent(typeof(Collider2D))]
 public class Bin : MonoBehaviour
 {
 	public Debris.DebrisType type;
-	public TextMeshProUGUI counterText;
-
-	Collider2D c;
-	private void Awake()
-	{
-		c = GetComponent<Collider2D>();
-	}
+	bool shouldCount = true;
 
 	private void Start()
 	{
 		//UpdateUI();
-		var data = GameManager.instance.gameData.debrisTypeData.GetData(type);
+		var data = GameManager.instance.gameSettings.debrisTypeData.GetData(type);
 		shouldCount = data.shouldCount;
 		GetComponent<SpriteRenderer>().color = data.color;
 	}
 
-	bool shouldCount = true;
-
 	private void OnCollisionEnter2D(Collision2D collision)
 	{
-		if (shouldCount && collision.gameObject.TryGetComponent(out Debris debris))
+		if (collision.gameObject.TryGetComponent(out Debris debris) && !debris.IsSpecial)
 		{
-			if (debris.type == type)
+			if (shouldCount)
 			{
-				GameManager.instance.counter[(int)type]++;
+				if (debris.type == type || UIManager.instance.swapper.jollyJoker)
+				{
+					GameManager.instance.counter += 1 * GameManager.instance.pointMultiplier;
+				}
+				else
+				{
+					//GameManager.instance.counter--;
+					GameManager.instance.strikes--;
+				}
 			}
-			else
-			{
-				GameManager.instance.counter[(int)type] -= 5;
-			}
-			//UpdateUI();
+			GameManager.instance.binFilled++;
 		}
 		Destroy(collision.gameObject);
-	}
-
-	void UpdateUI()
-	{
-		if (counterText == null) return;
-
-		string countText = $"<b>{GameManager.instance.counter[(int)type]}</b>";
-		if (GameManager.instance.counter[(int)type] < 0) countText = "<color=red>" + countText;
-		counterText.text = $"{type}: {countText}";
 	}
 }
