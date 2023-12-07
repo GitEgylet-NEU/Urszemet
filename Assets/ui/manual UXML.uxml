@@ -1,0 +1,43 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/ui/manual.uss?fileID=7433441132597879392&amp;guid=d123fb9c32b1d0e4281754bee907f3b9&amp;type=3#manual" />
+    <ui:VisualElement style="flex-grow: 1; flex-direction: row; margin-left: 720px;">
+        <ui:VisualElement style="flex-grow: 1; flex-direction: row;">
+            <ui:VisualElement style="flex-grow: 1; width: 30%; justify-content: space-around; margin-right: 15px;">
+                <ui:Button text="Történet" parse-escape-sequences="true" display-tooltip-when-elided="true" />
+                <ui:Button text="Játékmenet" parse-escape-sequences="true" display-tooltip-when-elided="true" />
+                <ui:Button text="Kisokos" parse-escape-sequences="true" display-tooltip-when-elided="true" />
+            </ui:VisualElement>
+            <ui:VisualElement style="flex-grow: 1; width: 70%;">
+                <ui:ScrollView name="GameplayScrollView">
+                    <ui:Foldout text="NÉV" value="false">
+                        <ui:Label tabindex="-1" text="ajnféonaeőoinőaiwenvőoinwőevoinaőwknfwakenéclkanweéfonéwalebélskbévcklsbdéfkjbaéskjcnlekjclaksjbdlckjbsdlajkeblabecéobaéecibéasobdckjsdbcaljdbclkajsbdlckjbasldkj" parse-escape-sequences="true" display-tooltip-when-elided="true" style="flex-wrap: wrap; white-space: normal;" />
+                    </ui:Foldout>
+                    <ui:Foldout text="név" value="false">
+                        <ui:Label tabindex="-1" text="ajnféonaeőoinőaiwenvőoinwőevoinaőwknfwakenéclkanweéfonéwalebélskbévcklsbdéfkjbaéskjcnlekjclaksjbdlckjbsdlajkeblabecéobaéecibéasobdckjsdbcaljdbclkajsbdlckjbasldkj" parse-escape-sequences="true" display-tooltip-when-elided="true" style="flex-wrap: wrap; white-space: normal;" />
+                    </ui:Foldout>
+                    <ui:Foldout text="név" value="false">
+                        <ui:Label tabindex="-1" text="ajnféonaeőoinőaiwenvőoinwőevoinaőwknfwakenéclkanweéfonéwalebélskbévcklsbdéfkjbaéskjcnlekjclaksjbdlckjbsdlajkeblabecéobaéecibéasobdckjsdbcaljdbclkajsbdlckjbasldkj" parse-escape-sequences="true" display-tooltip-when-elided="true" style="flex-wrap: wrap; white-space: normal;" />
+                    </ui:Foldout>
+                    <ui:Foldout text="név" value="false">
+                        <ui:Label tabindex="-1" text="ajnféonaeőoinőaiwenvőoinwőevoinaőwknfwakenéclkanweéfonéwalebélskbévcklsbdéfkjbaéskjcnlekjclaksjbdlckjbsdlajkeblabecéobaéecibéasobdckjsdbcaljdbclkajsbdlckjbasldkj" parse-escape-sequences="true" display-tooltip-when-elided="true" style="flex-wrap: wrap; white-space: normal;" />
+                    </ui:Foldout>
+                    <ui:Foldout text="név" value="false">
+                        <ui:Label tabindex="-1" text="ajnféonaeőoinőaiwenvőoinwőevoinaőwknfwakenéclkanweéfonéwalebélskbévcklsbdéfkjbaéskjcnlekjclaksjbdlckjbsdlajkeblabecéobaéecibéasobdckjsdbcaljdbclkajsbdlckjbasldkj" parse-escape-sequences="true" display-tooltip-when-elided="true" style="flex-wrap: wrap; white-space: normal;" />
+                    </ui:Foldout>
+                    <ui:Foldout text="név" value="false">
+                        <ui:Label tabindex="-1" text="ajnféonaeőoinőaiwenvőoinwőevoinaőwknfwakenéclkanweéfonéwalebélskbévcklsbdéfkjbaéskjcnlekjclaksjbdlckjbsdlajkeblabecéobaéecibéasobdckjsdbcaljdbclkajsbdlckjbasldkj" parse-escape-sequences="true" display-tooltip-when-elided="true" style="flex-wrap: wrap; white-space: normal;" />
+                    </ui:Foldout>
+                    <ui:Foldout text="név" value="false">
+                        <ui:Label tabindex="-1" text="ajnféonaeőoinőaiwenvőoinwőevoinaőwknfwakenéclkanweéfonéwalebélskbévcklsbdéfkjbaéskjcnlekjclaksjbdlckjbsdlajkeblabecéobaéecibéasobdckjsdbcaljdbclkajsbdlckjbasldkj" parse-escape-sequences="true" display-tooltip-when-elided="true" style="flex-wrap: wrap; white-space: normal;" />
+                    </ui:Foldout>
+                    <ui:Foldout text="név" value="false">
+                        <ui:Label tabindex="-1" text="ajnféonaeőoinőaiwenvőoinwőevoinaőwknfwakenéclkanweéfonéwalebélskbévcklsbdéfkjbaéskjcnlekjclaksjbdlckjbsdlajkeblabecéobaéecibéasobdckjsdbcaljdbclkajsbdlckjbasldkj" parse-escape-sequences="true" display-tooltip-when-elided="true" style="flex-wrap: wrap; white-space: normal;" />
+                    </ui:Foldout>
+                </ui:ScrollView>
+                <ui:ScrollView name="StoryScrollView">
+                    <ui:Label tabindex="-1" text="Egy utópisztikus jövőben járunk, ahol a szelektíven szétválogatott szemétéért fizetnek. Főhősünk Flick meglátva ebben a biznisz lehetőséget elhatározta, hogy a legtisztább, vagyishogy ebben az esetben a legkoszosabb piacot célozza meg, ahol nincsenek versenytársak: az űrt. Azonban ekkor még nem tudta, hogy milyen veszélyek, kihívások rejlenek ebben az egyszerűnek tűnő feladatban. A játék célja: Segíts Flick-nek minél több szemetet szelektíven gyűjteni, így az abból szerzett nyereségből fejleszthesse űrhajóját és felszerelését." parse-escape-sequences="true" display-tooltip-when-elided="true" style="white-space: normal; flex-wrap: wrap;" />
+                </ui:ScrollView>
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>
