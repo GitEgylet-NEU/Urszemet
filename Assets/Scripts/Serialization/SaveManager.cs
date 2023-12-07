@@ -6,13 +6,12 @@ using UnityEngine;
 public class SaveManager : MonoBehaviour
 {
 	public static SaveManager instance;
+	public GameSettings gameSettings;
 	private void Awake()
 	{
 		instance = this;
 	}
-
-	[Header("Settings")]
-	[Tooltip("Relative to persistentDataPath")] public string filePath;
+	string filePath;
 
 	public SaveData saveData;
 
@@ -23,15 +22,15 @@ public class SaveManager : MonoBehaviour
 
 	public bool LoadSaveData()
 	{
-		string path = Path.Combine(Application.persistentDataPath, filePath);
-		if (!File.Exists(path))
+		filePath = Path.Combine(Application.persistentDataPath, gameSettings.savePath) + '.' + gameSettings.saveExtension;
+		if (!File.Exists(filePath))
 		{
 			Debug.LogWarning($"Couldn't load save, starting new savegame");
 			saveData = new SaveData();
 			return true;
 		}
 
-		FileStream file = File.OpenRead(path);
+		FileStream file = File.OpenRead(filePath);
 
 		BinaryFormatter bf = new BinaryFormatter();
 		//TODO: surrogates
@@ -56,8 +55,8 @@ public class SaveManager : MonoBehaviour
 
 		var serialized = saveData.Serialize();
 
-		string path = Path.Combine(Application.persistentDataPath, filePath);
-		FileStream file = File.Open(path, FileMode.Create, FileAccess.Write);
+		filePath = Path.Combine(Application.persistentDataPath, gameSettings.savePath) + '.' + gameSettings.saveExtension;
+		FileStream file = File.Open(filePath, FileMode.Create, FileAccess.Write);
 		BinaryFormatter bf = new BinaryFormatter();
 
 		try
@@ -66,7 +65,7 @@ public class SaveManager : MonoBehaviour
 		}
 		catch (System.Exception e)
 		{
-			Debug.LogError($"Couldn't save file to {path}");
+			Debug.LogError($"Couldn't save file to {filePath}");
 			Debug.LogException(e);
 			file.Close();
 			return false;

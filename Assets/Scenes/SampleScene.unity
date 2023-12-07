@@ -3270,7 +3270,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed1e5c968aee8974498a83919b69c52f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  filePath: test_save.sav
+  gameSettings: {fileID: 11400000, guid: 125aeea4cdbeaf6419de569c34b10c09, type: 2}
 --- !u!114 &1709109092
 MonoBehaviour:
   m_ObjectHideFlags: 0
