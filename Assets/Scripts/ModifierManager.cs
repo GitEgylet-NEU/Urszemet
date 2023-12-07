@@ -27,6 +27,7 @@ public class ModifierManager : MonoBehaviour
 		}
 
 		//HandleModifierStart("no_collision");
+		//InventoryManager.instance.AddItem("time_slow", 2);
 	}
 
 	private void Update()
@@ -86,7 +87,7 @@ public class ModifierManager : MonoBehaviour
 		canSpawn = true;
 	}
 
-	void HandleModifierStart(string id)
+	public void HandleModifierStart(string id)
 	{
 		switch (id)
 		{
@@ -112,8 +113,15 @@ public class ModifierManager : MonoBehaviour
 			case "half_points":
 				GameManager.instance.pointMultiplier = .5f;
 				break;
+			//abilities
+			case "waste_clear":
+				DebrisManager.instance.ClearAllDebris();
+				break;
+			case "time_slow":
+				GameManager.instance.timeMultipliers.Add(.5f);
+				break;
 			default:
-				Debug.LogWarning($"Modifier's start function has not been implemented! (ID: {id})");
+				Debug.LogException(new System.NotImplementedException($"Modifier's start function has not been implemented! (ID: {id})"));
 				break;
 		}
 	}
@@ -143,8 +151,13 @@ public class ModifierManager : MonoBehaviour
 			case "half_points":
 				GameManager.instance.pointMultiplier = 1f;
 				break;
+			//abilities
+			case "waste_clear": break;
+			case "time_slow":
+				GameManager.instance.timeMultipliers.Remove(.5f);
+				break;
 			default:
-				Debug.LogWarning($"Modifier's end function has not been implemented! (ID: {id})");
+				Debug.LogException(new System.NotImplementedException($"Modifier's end function has not been implemented! (ID: {id})"));
 				break;
 		}
 	}

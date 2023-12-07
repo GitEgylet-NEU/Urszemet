@@ -68,3 +68,20 @@ MonoBehaviour:
     icon: {fileID: 0}
     duration: 10
     rarity: 1
+  abilities:
+  - id: waste_clear
+    good: 0
+    name: "Szem\xE9t elt\xFCntet\u0151"
+    description: "Elt\u0171nteti az \xF6sszes szemetet a j\xE1t\xE9kt\xE9rr\u0151l."
+    icon: {fileID: 21300000, guid: 86873f5b14e5037439fcaf1e3513fd65, type: 3}
+    duration: 0
+    rarity: 0
+  - id: time_slow
+    good: 0
+    name: "Id\u0151lass\xEDt\xF3"
+    description: "Egy gravit\xE1ci\xF3s gener\xE1tor seg\xEDts\xE9g\xE9vel lelass\xEDtod
+      az id\u0151t, \xEDgy k\xF6nnyebb lesz p\xF6ck\xF6lni a szemeteket."
+    icon: {fileID: 21300000, guid: c252d57f5d572d046afb2ffa27a9bfdf, type: 3}
+    duration: 10
+    rarity: 0
+  abilityCooldown: 10

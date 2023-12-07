@@ -17,7 +17,6 @@ public class InventoryManager : MonoBehaviour
 	private void Start()
 	{
 		SaveManager.instance.LoadSaveData();
-		Debug.Log(SaveManager.instance.saveData);
 
 		var query = SaveManager.instance.saveData.GetData("inventoryItems");
 		if (query == null) Items = new Dictionary<string, int>();
@@ -26,6 +25,12 @@ public class InventoryManager : MonoBehaviour
 		query = SaveManager.instance.saveData.GetData("currency");
 		if (query == null) Currency = 0f;
 		else Currency = (float)query;
+
+		//create entries for abilities
+		foreach (var ability in GameManager.instance.gameSettings.modifierSettings.abilities) if (!Items.ContainsKey(ability.id)) Items.Add(ability.id, 0);
+
+		AddItem("waste_clear", 2);
+		AddItem("time_slow", 2);
 	}
 
 	private void OnApplicationQuit()

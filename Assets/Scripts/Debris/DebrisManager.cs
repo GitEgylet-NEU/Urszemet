@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class DebrisManager : MonoBehaviour
@@ -60,6 +61,15 @@ public class DebrisManager : MonoBehaviour
 		RemoveClutter();
 	}
 
+	public void ClearAllDebris()
+	{
+		var query = debrisList.Where(debris => !debris.IsSpecial).ToArray();
+		foreach (var d in query)
+		{
+			debrisList.Remove(d);
+			Destroy(d.gameObject);
+		}
+	}
 	public void ToggleNoCollide(bool enabled)
 	{
 		noCollide = enabled;

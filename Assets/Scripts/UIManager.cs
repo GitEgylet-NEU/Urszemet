@@ -17,6 +17,8 @@ public sealed class UIManager : MonoBehaviour
 	public TextMeshProUGUI capacityText;
 	public BinSwapper swapper;
 	public RectTransform modifierList;
+	public RectTransform abilityList;
+	Dictionary<string, GameObject> abilityObjects;
 
 	[Header("Info Panel")]
 	[SerializeField] RectTransform infoPanel;
@@ -26,6 +28,72 @@ public sealed class UIManager : MonoBehaviour
 	[Header("Strikes")]
 	[SerializeField] RectTransform strikeHolder;
 	[SerializeField] Sprite fullStrike, emptyStrike;
+
+	private void Start()
+	{
+		abilityObjects = new();
+		abilityList.GetChild(0).gameObject.SetActive(false);
+		foreach (var ability in GameManager.instance.gameSettings.modifierSettings.abilities)
+		{
+			GameObject obj = Instantiate(abilityList.GetChild(0), abilityList).gameObject;
+			obj.name = ability.id;
+			obj.transform.GetChild(0).GetComponent<Image>().sprite = ability.icon;
+			obj.SetActive(true);
+			abilityObjects.Add(ability.id, obj);
+			obj.GetComponent<Button>().onClick.AddListener(() => ActivateAbility(ability.id));
+		}
+
+		UpdateAbilityObjects();
+	}
+	public void ActivateAbility(string id)
+	{
+		if (!InventoryManager.instance.SubtractItem(id, 1))
+		{
+			Debug.LogError($"Can't afford {id}, aborting");
+			return;
+		}
+		abilityObjects[id].GetComponent<Image>().color = Color.green;
+		abilityObjects[id].GetComponent<Button>().interactable = false;
+		ModifierManager.instance.HandleModifierStart(id);
+		float duration = GameManager.instance.gameSettings.modifierSettings.GetAbility(id).duration;
+		UpdateAbilityObjects();
+		StartCoroutine(DeactivateAbility(id, duration));
+	}
+	IEnumerator DeactivateAbility(string id, float t)
+	{
+		yield return new WaitForSeconds(t);
+		abilityObjects[id].GetComponent<Image>().color = Color.white;
+		abilityObjects[id].GetComponent<Button>().interactable = true;
+		ModifierManager.instance.HandleModifierEnd(id);
+		UpdateAbilityObjects();
+		StartCoroutine(AbilityCooldown(id));
+	}
+	IEnumerator AbilityCooldown(string id)
+	{
+		if (InventoryManager.instance.GetItem(id) <= 0) yield break;
+		abilityObjects[id].GetComponent<Button>().interactable = false;
+		yield return new WaitForSeconds(GameManager.instance.gameSettings.modifierSettings.abilityCooldown);
+		abilityObjects[id].GetComponent<Button>().interactable = true;
+	}
+	public void UpdateAbilityObjects()
+	{
+		foreach (var obj in abilityObjects)
+		{
+			int quantity = InventoryManager.instance.GetItem(obj.Key);
+			obj.Value.transform.Find("QuantityCircle").GetChild(0).GetComponent<TextMeshProUGUI>().text = quantity.ToString();
+			if (obj.Value.GetComponent<Image>().color == Color.green) continue;
+			if (quantity <= 0)
+			{
+				obj.Value.GetComponent<Image>().color = Color.red;
+				obj.Value.GetComponent<Button>().interactable = false;
+			}
+			else
+			{
+				obj.Value.GetComponent<Image>().color = Color.white;
+				obj.Value.GetComponent<Button>().interactable = true;
+			}
+		}
+	}
 
 	void Update()
 	{
@@ -52,6 +120,23 @@ public sealed class UIManager : MonoBehaviour
 	}
 
 	public void AddModifier(Modifier modifier)
+	{
+		GameObject obj = Instantiate(modifierList.GetChild(0), modifierList).gameObject;
+		obj.name = modifier.id;
+		obj.GetComponent<Image>().color = modifier.GetColor();
+		obj.transform.GetChild(0).GetComponent<Image>().sprite = modifier.icon;
+		obj.SetActive(true);
+
+		//display InfoPanel if new modifier
+		if (!ModifierManager.instance.hasSeenModifier[modifier.id])
+		{
+			AddInfoPanelToQueue(modifier.name, "<b>You just found a new modifier!</b>\n\n" + modifier.description, modifier.icon);
+			ModifierManager.instance.hasSeenModifier[modifier.id] = true;
+		}
+
+		StartCoroutine(RemoveModifier(obj, modifier.duration, modifier.id));
+	}
+	public void StartAbility(Modifier modifier)
 	{
 		GameObject obj = Instantiate(modifierList.GetChild(0), modifierList).gameObject;
 		obj.name = modifier.id;
@@ -114,7 +199,7 @@ public sealed class UIManager : MonoBehaviour
 		}
 		catch (System.Exception)
 		{
-			Debug.LogWarning("There are no entries in infoPanelQueue!");
+			//Debug.LogWarning("There are no entries in infoPanelQueue!");
 			infoPanel.gameObject.SetActive(false);
 			GameManager.instance.paused = false;
 			return;

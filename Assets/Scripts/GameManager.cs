@@ -32,7 +32,9 @@ public sealed class GameManager : MonoBehaviour
 		//reset data
 		if (Input.GetKeyDown(KeyCode.R))
 		{
+			counter = 0;
 			points = 0;
+			binCapacity = gameSettings.defaultBinCapacity;
 			SaveData();
 		}
 
@@ -58,21 +60,17 @@ public sealed class GameManager : MonoBehaviour
 
 	public void FetchData()
 	{
-		if (PlayerPrefs.HasKey("currency"))
-		{
-			points = PlayerPrefs.GetFloat("currency");
-		}
-		if (PlayerPrefs.HasKey("binCapacity"))
-		{
-			binCapacity = PlayerPrefs.GetInt("binCapacity");
-		}
+		var query = SaveManager.instance.saveData.GetData("currency");
+		if (query != null) points = (float)query;
+		query = SaveManager.instance.saveData.GetData("bin_capacity");
+		if (query != null) binCapacity = (int)query;
 		else binCapacity = gameSettings.defaultBinCapacity;
 	}
 	public void SaveData()
 	{
-		PlayerPrefs.SetFloat("currency", points);
-		PlayerPrefs.SetInt("binCapacity", binCapacity);
-		PlayerPrefs.Save();
+		SaveManager.instance.saveData.EditData("currency", points);
+		SaveManager.instance.saveData.EditData("bin_capacity", binCapacity);
+		SaveManager.instance.SaveData();
 	}
 
 	private void OnApplicationQuit()

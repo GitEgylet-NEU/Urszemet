@@ -63,14 +63,15 @@ public class SaveManager : MonoBehaviour
 		try
 		{
 			bf.Serialize(file, serialized);
-			return true;
 		}
 		catch (System.Exception e)
 		{
 			Debug.LogError($"Couldn't save file to {path}");
 			Debug.LogException(e);
+			file.Close();
 			return false;
 		}
+		file.Close();
+		return true;
 	}
-
 }
