@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -23,12 +24,21 @@ public sealed class GameManager : MonoBehaviour
 	public int binCapacity;
 	public int binFilled = 0;
 
+	bool loaded = false;
+
 	private void Start()
 	{
-		FetchData();
+		StartCoroutine(WaitAndFetchData());
+		IEnumerator WaitAndFetchData()
+		{
+			yield return new WaitForSeconds(.5f);
+			FetchData();
+			loaded = true;
+		}
 	}
 	private void Update()
 	{
+		if (!loaded) return;
 		//reset data
 		if (Input.GetKeyDown(KeyCode.R))
 		{
@@ -65,6 +75,7 @@ public sealed class GameManager : MonoBehaviour
 		query = SaveManager.instance.saveData.GetData("bin_capacity");
 		if (query != null) binCapacity = (int)query;
 		else binCapacity = gameSettings.defaultBinCapacity;
+		if (binCapacity <= 0) binCapacity = gameSettings.defaultBinCapacity;
 	}
 	public void SaveData()
 	{

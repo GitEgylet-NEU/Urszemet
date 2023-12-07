@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using UnityEngine;
 
 public class EventManager : MonoBehaviour
@@ -77,13 +76,26 @@ public class EventManager : MonoBehaviour
 				canEndEvent = false;
 				break;
 			case "gravity_anomaly":
-				var obj = DebrisSpawner.instance.SpawnObject(GameManager.instance.gameSettings.blackHolePrefab, true);
+				var gravObj = DebrisSpawner.instance.SpawnObject(GameManager.instance.gameSettings.blackHolePrefab, true);
 				canEndEvent = false;
 				StartCoroutine(EndGravityEvent());
 				IEnumerator EndGravityEvent()
 				{
-					yield return new WaitUntil(() => Vector2.Distance(obj.transform.position, Vector2.zero) / 4f >= DebrisManager.instance.deleteDistance + 0.1f);
-					Destroy(obj);
+					yield return new WaitUntil(() => Vector2.Distance(gravObj.transform.position, Vector2.zero) / 4f >= DebrisManager.instance.deleteDistance + 0.1f);
+					Destroy(gravObj);
+					canEndEvent = true;
+				}
+				break;
+			case "convoy":
+				var convoyObj = Instantiate(GameManager.instance.gameSettings.convoyPrefab);
+				convoyObj.name = "Convoy";
+				convoyObj.GetComponent<Rigidbody2D>().AddForce(100f * Vector2.up, ForceMode2D.Impulse);
+				canEndEvent = false;
+				StartCoroutine(EndConvoyEvent());
+				IEnumerator EndConvoyEvent()
+				{
+					yield return new WaitUntil(() => Vector2.Distance(convoyObj.transform.position, Vector2.zero) >= 40f);
+					Destroy(convoyObj);
 					canEndEvent = true;
 				}
 				break;

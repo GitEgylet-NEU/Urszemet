@@ -12,7 +12,8 @@ public class DebrisSpawner : MonoBehaviour
 
 	public float spawnAreaDistance;
 	Rect spawnArea;
-	Rect spawnAreaSD, playArea;
+	Rect spawnAreaSD;
+	public Rect playArea {  get; private set; }
 
 	[Header("Spawn Rates")]
 	public MinMaxRange spawnRate;

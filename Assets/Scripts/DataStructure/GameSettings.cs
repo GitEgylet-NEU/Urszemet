@@ -22,8 +22,9 @@ public class GameSettings : ScriptableObject
 	[Header("Random Events")]
 	public MinMaxRange eventSpawnInterval;
 	public RandomEventData[] randomEventData;
-	public ModifierSettings modifierSettings;
 	public GameObject blackHolePrefab;
+	public GameObject convoyPrefab;
+	public ModifierSettings modifierSettings;
 
 	[Header("Shop & Items")]
 	public ShopItemData[] shopItemData;

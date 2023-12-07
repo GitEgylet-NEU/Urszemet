@@ -48,6 +48,12 @@ public class Debris : MonoBehaviour
 				Destroy(gameObject);
 			}
 		}
+		else if (collision.gameObject.name == "Convoy")
+		{
+			//only deduct point if debris is visible to player
+			if (DebrisSpawner.instance.playArea.Contains(transform.position)) GameManager.instance.counter -= .5f;
+			Destroy(gameObject);
+		}
 	}
 	private void OnDestroy()
 	{

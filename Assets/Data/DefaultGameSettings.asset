@@ -78,7 +78,7 @@ MonoBehaviour:
     description: 
     icon: {fileID: 0}
   - ID: gravity_anomaly
-    spawnChance: 100
+    spawnChance: 1
     duration:
       min: 0
       max: 0
@@ -88,8 +88,20 @@ MonoBehaviour:
       B\xE1r nem el\xE9g nagy ahhoz, hogy elnyelje a szemeteket, mag\xE1hoz fogja
       \u0151ket vonzani!"
     icon: {fileID: 21300000, guid: aa8565241effbc44399eeda5faf0cee2, type: 3}
-  modifierSettings: {fileID: 11400000, guid: d5f7e58dad2d21841995f82a38546555, type: 2}
+  - ID: convoy
+    spawnChance: 1
+    duration:
+      min: 0
+      max: 0
+    doPopUp: 1
+    name: Konvoj
+    description: "Arra utas\xEDtottak, hogy tiszt\xEDtsd meg az utat egy \u0171rhaj\xF3konvoj
+      sz\xE1m\xE1ra. Vigy\xE1zz, mert az \u0171rszem\xE9t \xE1ltal okozott k\xE1rokat
+      neked kell kifizetned!"
+    icon: {fileID: 21300000, guid: 793cb71512c8f3e4fa01d438957a296a, type: 3}
   blackHolePrefab: {fileID: 1692688026421648874, guid: cc831721b8c8fb64a916cc2eed1f8b56, type: 3}
+  convoyPrefab: {fileID: 5511895093645632949, guid: f1f3543fc3a4e114bb2ecc414bb03162, type: 3}
+  modifierSettings: {fileID: 11400000, guid: d5f7e58dad2d21841995f82a38546555, type: 2}
   shopItemData:
   - {fileID: 11400000, guid: 1e415a2896d2d8b4788d0d3f77cf1418, type: 2}
   - {fileID: 11400000, guid: 499fd7e55ebe14f4d97f7e642a4d0ce1, type: 2}

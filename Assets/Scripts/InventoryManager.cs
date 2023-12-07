@@ -6,16 +6,14 @@ using UnityEngine;
 public class InventoryManager : MonoBehaviour
 {
 	public static InventoryManager instance;
-	private void Awake()
-	{
-		instance = this;
-	}
 
 	public Dictionary<string, int> Items { get; private set; }
 	public float Currency { get; private set; }
 
-	private void Start()
+	private void Awake()
 	{
+		instance = this;
+
 		SaveManager.instance.LoadSaveData();
 
 		var query = SaveManager.instance.saveData.GetData("inventoryItems");
