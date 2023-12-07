@@ -43,6 +43,10 @@ public class UIcontroller : MonoBehaviour
     void Update()
     {
     }
+    public void PlayButton()
+    {
+        SceneManager.LoadScene("SampleScene");
+    }
     public void Changed() 
     {
        
@@ -93,7 +97,6 @@ public class UIcontroller : MonoBehaviour
             // active ui window state megváltoztatása
             
             UI[pressed].SetActive(true);
-            Debug.Log("kikapcs: " + ActiveTab);
             ActiveTab = pressed;
             
         }
@@ -103,7 +106,6 @@ public class UIcontroller : MonoBehaviour
             UI[ActiveTab].SetActive(false);
             ActiveTab = -1;
         }
-        Debug.Log("holomove " + pressed);
 
     }
 
