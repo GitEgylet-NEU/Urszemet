@@ -78,10 +78,10 @@ MonoBehaviour:
     description: 
     icon: {fileID: 0}
   - ID: gravity_anomaly
-    spawnChance: 1
+    spawnChance: 0.25
     duration:
-      min: 10
-      max: 20
+      min: 0
+      max: 0
     doPopUp: 1
     name: "Gravit\xE1ci\xF3s anom\xE1lia"
     description: "Egy miniat\u0171r fekete lyuk fog \xE1thaladni a j\xE1t\xE9kt\xE9ren.
@@ -89,10 +89,10 @@ MonoBehaviour:
       \u0151ket vonzani!"
     icon: {fileID: 21300000, guid: aa8565241effbc44399eeda5faf0cee2, type: 3}
   - ID: convoy
-    spawnChance: 1
+    spawnChance: 0.2
     duration:
-      min: 4
-      max: 10
+      min: 0
+      max: 0
     doPopUp: 1
     name: Konvoj
     description: "Arra utas\xEDtottak, hogy tiszt\xEDtsd meg az utat egy \u0171rhaj\xF3konvoj
@@ -103,7 +103,7 @@ MonoBehaviour:
   convoyPrefab: {fileID: 5511895093645632949, guid: f1f3543fc3a4e114bb2ecc414bb03162, type: 3}
   modifierSettings: {fileID: 11400000, guid: d5f7e58dad2d21841995f82a38546555, type: 2}
   shopItemData:
-  - {fileID: 11400000, guid: 1e415a2896d2d8b4788d0d3f77cf1418, type: 2}
+  - {fileID: 11400000, guid: c3b1891e4f2da8c4788e84423934f265, type: 2}
   - {fileID: 11400000, guid: 499fd7e55ebe14f4d97f7e642a4d0ce1, type: 2}
   saveExtension: main_save
   savePath: sav
