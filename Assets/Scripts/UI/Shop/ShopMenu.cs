@@ -66,6 +66,8 @@ public class ShopMenu : MonoBehaviour
 		itemDetailPanel.gameObject.SetActive(false);
 		itemGrid.SetHeight(CalculateHeight());
 		if (currencyText != null) currencyText.text = InventoryManager.instance.Currency.ToString("# ##0.0");
+		Select(items.First().id);
+		itemObjects.First().OnClick();
 	}
 
 	public void Select(string id)
