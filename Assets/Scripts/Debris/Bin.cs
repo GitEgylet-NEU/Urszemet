@@ -28,6 +28,7 @@ public class Bin : MonoBehaviour
 				{
 					//GameManager.instance.counter--;
 					GameManager.instance.strikes--;
+					if (GameManager.instance.strikes > 0) AudioManager.instance.PlaySound("strike");
 				}
 			}
 			GameManager.instance.binFilled++;

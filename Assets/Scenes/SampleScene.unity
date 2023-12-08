@@ -3792,6 +3792,18 @@ GameObject:
   - component: {fileID: 1934217614}
   m_Layer: 5
   m_Name: Abilities
+--- !u!1 &2069078637
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2069078639}
+  - component: {fileID: 2069078638}
+  m_Layer: 0
+  m_Name: AudioManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4110,3 +4122,4 @@ SceneRoots:
   - {fileID: 810245192}
   - {fileID: 774828796}
   - {fileID: 1115058733}
+  - {fileID: 2069078639}
