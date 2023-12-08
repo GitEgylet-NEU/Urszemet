@@ -52,14 +52,6 @@ MonoBehaviour:
     icon: {fileID: 21300000, guid: 06442ce8d4346f245829a56fd17159c1, type: 3}
     duration: 10
     rarity: 1
-  - id: mono_vision
-    good: 0
-    name: "Szenzorblokkol\xE1s"
-    description: "Blokkolj\xE1k \u0171rhaj\xF3d szenzorait, \xEDgy egy id\u0151re
-      csak sz\xFCrke\xE1rnyalatosan fogsz l\xE1tni!"
-    icon: {fileID: 0}
-    duration: 15
-    rarity: 0
   - id: half_points
     good: 0
     name: "Pontfelez\u0151"

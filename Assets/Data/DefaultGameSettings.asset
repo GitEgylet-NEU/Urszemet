@@ -20,6 +20,7 @@ MonoBehaviour:
     shouldCount: 0
     sprites:
     - {fileID: 21300000, guid: f3cae440ce2dae3409d9793a6d14b2fd, type: 3}
+    - {fileID: 21300000, guid: 99b52e138fc24ac4bbba9fa16b7325d4, type: 3}
   - debrisType: 1
     displayName: "M\u0171anyag"
     color: {r: 1, g: 0.875, b: 0.25, a: 1}
@@ -50,6 +51,7 @@ MonoBehaviour:
     shouldCount: 1
     sprites:
     - {fileID: 21300000, guid: a2a7934aff4db404ba0ccf2f51759ce8, type: 3}
+    - {fileID: 21300000, guid: f634865c46821b3428c18d110591c998, type: 3}
   minDistance: 1
   goodSDPrefab: {fileID: 7365716837782167407, guid: 038df3ed8419689479cb78ccb278382e, type: 3}
   badSDPrefab: {fileID: 519101710274698116, guid: 51ee0981289f680488c021b913c4c77b, type: 3}

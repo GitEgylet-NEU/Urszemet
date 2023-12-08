@@ -35,6 +35,12 @@ public class Debris : MonoBehaviour
 			c = GetComponent<PolygonCollider2D>();
 		}
 		if (!IsSpecial) rb.excludeLayers = DebrisManager.instance.noCollide ? LayerMask.GetMask("AffectedByNoCollide") : LayerMask.GetMask();
+		if (TryGetComponent<SpriteRenderer>(out var sr))
+		{
+			var q = GameManager.instance.gameSettings.debrisTypeData.GetData(type);
+			if (q != null) sr.material.SetColor("_Color", q.color);
+			else sr.material.SetColor("_Color", new Color(0f,0f,0f,0f));
+		}
 	}
 	private void OnCollisionEnter2D(Collision2D collision)
 	{
