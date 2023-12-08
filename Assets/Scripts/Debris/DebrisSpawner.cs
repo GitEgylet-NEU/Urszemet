@@ -75,6 +75,7 @@ public class DebrisSpawner : MonoBehaviour
 		if (sprite == null) return;
 
 		GameObject debris = Instantiate(debrisPrefab, position, Quaternion.Euler(0, 0, Random.Range(0f, 360f)), transform);
+		debris.name = sprite.name;
 		debris.GetComponent<SpriteRenderer>().sprite = sprite;
 		debris.GetComponent<Debris>().type = type;
 		Rigidbody2D rb = debris.GetComponent<Rigidbody2D>();

@@ -164,9 +164,16 @@ public sealed class UIManager : MonoBehaviour
 	{
 		AddInfoPanelToQueue(new InfoPanelData(title, text, image, buttonText));
 	}
-	public void AddInfoPanelToQueue(InfoPanelData infoPanelData)
+	public void AddInfoPanelToQueue(InfoPanelData infoPanelData, bool first = false)
 	{
-		infoPanelQueue.Enqueue(infoPanelData);
+		if (first)
+		{
+			var q = infoPanelQueue.ToArray();
+			infoPanelQueue.Clear();
+			infoPanelQueue.Enqueue(infoPanelData);
+			foreach (var item in q) infoPanelQueue.Enqueue(item);
+		}
+		else infoPanelQueue.Enqueue(infoPanelData);
 		if (!IsInfoPanelActive) ShowNextInfoPanel();
 	}
 	public void ShowGameOver(bool strikes)
@@ -179,10 +186,15 @@ public sealed class UIManager : MonoBehaviour
 		Sprite icon = strikes ? fullStrike : null;
 		infoPanelQueue.Clear();
 		infoPanel.gameObject.SetActive(false);
-		infoPanel.Find("ConfirmButton").GetComponent<Button>().onClick.AddListener(() => GameManager.instance.ExitGame());
+		infoPanel.Find("ConfirmButton").GetComponent<Button>().onClick.AddListener(() => GameManager.instance.ReturnToMainMenu());
 		AddInfoPanelToQueue("Játék vége!", text + $"\n\nA kör pontszáma: {GameManager.instance.counter}", icon, "Kilépés");
 	}
-
+	public void ShowPauseMenu()
+	{
+		infoPanel.gameObject.SetActive(false);
+		infoPanel.Find("ConfirmButton").GetComponent<Button>().onClick.AddListener(() => GameManager.instance.ReturnToMainMenu());
+		AddInfoPanelToQueue(new("Szüneteltetés", "Megállítottad a játékot. Most lehetõséged van visszatérni a bázisodra és eladni az eddig összegyûjtött szemetet.", null, "Fõmenü", true), true);
+	}
 	public void CloseInfoPanel()
 	{
 		infoPanel.gameObject.SetActive(false);
@@ -218,6 +230,8 @@ public sealed class UIManager : MonoBehaviour
 			img.GetComponent<Image>().sprite = data.image;
 			img.gameObject.SetActive(true);
 		}
+		infoPanel.Find("ConfirmButton").GetChild(0).GetComponent<TextMeshProUGUI>().text = data.buttonText;
+		infoPanel.Find("CloseButton").gameObject.SetActive(data.showCloseButton);
 
 		infoPanel.gameObject.SetActive(true);
 		GameManager.instance.paused = true;
@@ -229,13 +243,15 @@ public sealed class UIManager : MonoBehaviour
 		public string text;
 		public Sprite image;
 		public string buttonText;
+		public bool showCloseButton;
 
-		public InfoPanelData(string title, string text, Sprite image = null, string buttonText = "OK")
+		public InfoPanelData(string title, string text, Sprite image = null, string buttonText = "OK", bool showCloseButton = false)
 		{
 			this.title = title;
 			this.text = text;
 			this.image = image;
 			this.buttonText = buttonText;
+			this.showCloseButton = showCloseButton;
 		}
 	}
 }

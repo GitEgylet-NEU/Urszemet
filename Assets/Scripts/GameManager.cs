@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public sealed class GameManager : MonoBehaviour
 {
@@ -66,6 +67,15 @@ public sealed class GameManager : MonoBehaviour
 #if UNITY_EDITOR
 		UnityEditor.EditorApplication.isPlaying = false;
 #endif
+	}
+	public void ReturnToMainMenu()
+	{
+		points += counter;
+		if (points < 0) points = 0;
+		counter = 0;
+		SaveData();
+
+		SceneManager.LoadScene("MainMenu", LoadSceneMode.Single);
 	}
 
 	public void FetchData()
