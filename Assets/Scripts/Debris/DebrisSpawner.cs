@@ -78,6 +78,7 @@ public class DebrisSpawner : MonoBehaviour
 		debris.name = sprite.name;
 		debris.GetComponent<SpriteRenderer>().sprite = sprite;
 		debris.GetComponent<Debris>().type = type;
+		debris.transform.localPosition = new Vector3(debris.transform.position.x, debris.transform.position.y, 0);
 		Rigidbody2D rb = debris.GetComponent<Rigidbody2D>();
 		rb.AddForce(Rotate(Vector2.right, spawnVelocityAngle.Get()) * spawnVelocity.Get(), ForceMode2D.Impulse);
 		rb.angularVelocity = spawnAngularVelocity.Get();
@@ -106,6 +107,7 @@ public class DebrisSpawner : MonoBehaviour
 		rb1.AddForce((Vector2.zero - pos1) * (spawnVelocity.Get() / 3f), ForceMode2D.Impulse);
 		rb1.angularVelocity = spawnAngularVelocity.Get();
 		Debris d1 = debris1.GetComponent<Debris>();
+		debris1.transform.localPosition = new Vector3(debris1.transform.position.x, debris1.transform.position.y, 0);
 		d1.type = good ? Debris.DebrisType.SpecialGood : Debris.DebrisType.SpecialBad;
 		d1.flicked = -1;
 
@@ -114,6 +116,7 @@ public class DebrisSpawner : MonoBehaviour
 		rb2.AddForce((Vector2.zero - pos2) * (spawnVelocity.Get() / 3f), ForceMode2D.Impulse);
 		rb2.angularVelocity = spawnAngularVelocity.Get();
 		Debris d2 = debris2.GetComponent<Debris>();
+		debris2.transform.localPosition = new Vector3(debris2.transform.position.x, debris2.transform.position.y, 0);
 		d2.type = good ? Debris.DebrisType.SpecialGood : Debris.DebrisType.SpecialBad;
 		d2.flicked = -1;
 	}

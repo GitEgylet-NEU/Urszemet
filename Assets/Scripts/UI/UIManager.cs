@@ -29,6 +29,8 @@ public sealed class UIManager : MonoBehaviour
 	[SerializeField] RectTransform strikeHolder;
 	[SerializeField] Sprite fullStrike, emptyStrike;
 
+	bool exit = false;
+
 	private void Start()
 	{
 		abilityObjects = new();
@@ -186,17 +188,18 @@ public sealed class UIManager : MonoBehaviour
 		Sprite icon = strikes ? fullStrike : null;
 		infoPanelQueue.Clear();
 		infoPanel.gameObject.SetActive(false);
-		infoPanel.Find("ConfirmButton").GetComponent<Button>().onClick.AddListener(() => GameManager.instance.ReturnToMainMenu());
+		exit = true;
 		AddInfoPanelToQueue("Játék vége!", text + $"\n\nA kör pontszáma: {GameManager.instance.counter}", icon, "Kilépés");
 	}
 	public void ShowPauseMenu()
 	{
 		infoPanel.gameObject.SetActive(false);
-		infoPanel.Find("ConfirmButton").GetComponent<Button>().onClick.AddListener(() => GameManager.instance.ReturnToMainMenu());
+		exit = true;
 		AddInfoPanelToQueue(new("Szüneteltetés", "Megállítottad a játékot. Most lehetõséged van visszatérni a bázisodra és eladni az eddig összegyûjtött szemetet.", null, "Fõmenü", true), true);
 	}
-	public void CloseInfoPanel()
+	public void CloseInfoPanel(bool confirm)
 	{
+		if (exit && confirm) GameManager.instance.ReturnToMainMenu();
 		infoPanel.gameObject.SetActive(false);
 		GameManager.instance.paused = false;
 		StartCoroutine(ShowNextInfoPanel(.4f));

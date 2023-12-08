@@ -70,6 +70,7 @@ public sealed class GameManager : MonoBehaviour
 	}
 	public void ReturnToMainMenu()
 	{
+		Debug.Log("omg");
 		points += counter;
 		if (points < 0) points = 0;
 		counter = 0;
