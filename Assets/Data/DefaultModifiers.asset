@@ -17,7 +17,7 @@ MonoBehaviour:
     good: 1
     name: "2x p\xF6ck\xF6l\xE9s"
     description: "K\xE9tszer p\xF6ck\xF6lhetsz el minden szemetet."
-    icon: {fileID: 0}
+    icon: {fileID: 21300000, guid: b1cc44244242af442a7539d17bf36ac2, type: 3}
     duration: 10
     rarity: 1
   - id: jolly_joker
@@ -25,7 +25,7 @@ MonoBehaviour:
     name: Jolly Joker kuka
     description: "A kuk\xE1id minden szemetet elfogadnak, nem j\xE1r pontlevon\xE1s
       a helytelen szelekt\xE1l\xE1s\xE9rt."
-    icon: {fileID: 0}
+    icon: {fileID: 21300000, guid: a29c9bcfdd1755f4c8798975d851fa76, type: 3}
     duration: 10
     rarity: 1
   - id: double_points
@@ -33,7 +33,7 @@ MonoBehaviour:
     name: "2x pontsz\xE1m"
     description: "Minden helyesen szelekt\xE1lt szem\xE9t k\xE9tszer annyi pontot
       \xE9r sz\xE1modra, mint egy\xE9bk\xE9nt."
-    icon: {fileID: 0}
+    icon: {fileID: 21300000, guid: 45acaa68f50937948b1f419ff377d6dd, type: 3}
     duration: 15
     rarity: 1
   - id: no_collision
@@ -41,7 +41,7 @@ MonoBehaviour:
     name: "F\xE1ziseltol\xE1s"
     description: "A szemetek r\xF6vid id\u0151re k\xFCl\xF6nb\xF6z\u0151 f\xE1zisokba
       ker\xFClnek, \xEDgy nem \xFCtk\xF6znek egym\xE1sba."
-    icon: {fileID: 0}
+    icon: {fileID: 21300000, guid: c7c84d47ef4d56a489fbee6e58d4c3c8, type: 3}
     duration: 20
     rarity: 1
   - id: time_speed
@@ -49,7 +49,7 @@ MonoBehaviour:
     name: "Gyorsult id\u0151"
     description: "Egy elromlott gravit\xE1ci\xF3s gener\xE1tort tal\xE1lt\xE1l, ami
       r\xF6vid id\u0151re felgyors\xEDtja az id\u0151t. Figyelj oda a szemetekre!"
-    icon: {fileID: 0}
+    icon: {fileID: 21300000, guid: 06442ce8d4346f245829a56fd17159c1, type: 3}
     duration: 10
     rarity: 1
   - id: half_points
