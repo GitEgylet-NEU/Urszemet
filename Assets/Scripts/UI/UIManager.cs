@@ -171,6 +171,10 @@ public sealed class UIManager : MonoBehaviour
 	}
 	public void ShowGameOver(bool strikes)
 	{
+		if (strikes == true)
+        {
+			AudioManager.instance.PlaySound("gameover");
+        }
 		string text = strikes ? "Sajnos, számodra véget ért a játék, mert háromszor is rosszul szelektáltál. Egyet se csüggedj, próbáld hát újra!" : "Megtelt az ûrhajód rakodótere, így kénytelen vagy hazatérni, hogy kiürítsd. Érdemes lenne megfontolni a tárolóegységed fejlesztését! (bolt)";
 		Sprite icon = strikes ? fullStrike : null;
 		infoPanelQueue.Clear();
