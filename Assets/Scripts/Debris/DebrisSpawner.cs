@@ -28,6 +28,7 @@ public class DebrisSpawner : MonoBehaviour
 	public MinMaxRange spawnVelocity;
 	public MinMaxRange spawnVelocityAngle;
 	public MinMaxRange spawnAngularVelocity;
+	public GameObject debrisPrefab;
 
 	void Start()
 	{
@@ -73,7 +74,7 @@ public class DebrisSpawner : MonoBehaviour
 		}
 		if (sprite == null) return;
 
-		GameObject debris = Instantiate(GameManager.instance.gameSettings.debrisPrefab, position, Quaternion.Euler(0, 0, Random.Range(0f, 360f)), transform);
+		GameObject debris = Instantiate(debrisPrefab, position, Quaternion.Euler(0, 0, Random.Range(0f, 360f)), transform);
 		debris.GetComponent<SpriteRenderer>().sprite = sprite;
 		debris.GetComponent<Debris>().type = type;
 		Rigidbody2D rb = debris.GetComponent<Rigidbody2D>();

@@ -36,6 +36,7 @@ public class DebrisManager : MonoBehaviour
 	[SerializeField] float minFlickDistance;
 	[SerializeField] float maxFlickDistance;
 	[HideInInspector] public bool noCollide = false;
+	public bool canFlick = true;
 
 	private void Awake()
 	{
@@ -54,10 +55,12 @@ public class DebrisManager : MonoBehaviour
 
 	private void Update()
 	{
-		HandleTouches();
+		if (canFlick)
+		{
+			HandleTouches();
 
-		HandleDrags();
-
+			HandleDrags();
+		}
 		RemoveClutter();
 	}
 
