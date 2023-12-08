@@ -54,10 +54,10 @@ MonoBehaviour:
   goodSDPrefab: {fileID: 7365716837782167407, guid: 038df3ed8419689479cb78ccb278382e, type: 3}
   badSDPrefab: {fileID: 519101710274698116, guid: 51ee0981289f680488c021b913c4c77b, type: 3}
   minSDDistance: 5
-  defaultBinCapacity: 25
+  defaultBinCapacity: 30
   eventSpawnInterval:
-    min: 5
-    max: 10
+    min: 10
+    max: 30
   randomEventData:
   - ID: powerup_good
     spawnChance: 1
@@ -80,8 +80,8 @@ MonoBehaviour:
   - ID: gravity_anomaly
     spawnChance: 1
     duration:
-      min: 0
-      max: 0
+      min: 10
+      max: 20
     doPopUp: 1
     name: "Gravit\xE1ci\xF3s anom\xE1lia"
     description: "Egy miniat\u0171r fekete lyuk fog \xE1thaladni a j\xE1t\xE9kt\xE9ren.
@@ -91,8 +91,8 @@ MonoBehaviour:
   - ID: convoy
     spawnChance: 1
     duration:
-      min: 0
-      max: 0
+      min: 4
+      max: 10
     doPopUp: 1
     name: Konvoj
     description: "Arra utas\xEDtottak, hogy tiszt\xEDtsd meg az utat egy \u0171rhaj\xF3konvoj

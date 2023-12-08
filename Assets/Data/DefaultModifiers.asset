@@ -34,7 +34,7 @@ MonoBehaviour:
     description: "Minden helyesen szelekt\xE1lt szem\xE9t k\xE9tszer annyi pontot
       \xE9r sz\xE1modra, mint egy\xE9bk\xE9nt."
     icon: {fileID: 0}
-    duration: 10
+    duration: 15
     rarity: 1
   - id: no_collision
     good: 1
@@ -42,7 +42,7 @@ MonoBehaviour:
     description: "A szemetek r\xF6vid id\u0151re k\xFCl\xF6nb\xF6z\u0151 f\xE1zisokba
       ker\xFClnek, \xEDgy nem \xFCtk\xF6znek egym\xE1sba."
     icon: {fileID: 0}
-    duration: 10
+    duration: 20
     rarity: 1
   - id: time_speed
     good: 0
@@ -58,7 +58,7 @@ MonoBehaviour:
     description: "Blokkolj\xE1k \u0171rhaj\xF3d szenzorait, \xEDgy egy id\u0151re
       csak sz\xFCrke\xE1rnyalatosan fogsz l\xE1tni!"
     icon: {fileID: 0}
-    duration: 0
+    duration: 15
     rarity: 0
   - id: half_points
     good: 0
@@ -82,6 +82,6 @@ MonoBehaviour:
     description: "Egy gravit\xE1ci\xF3s gener\xE1tor seg\xEDts\xE9g\xE9vel lelass\xEDtod
       az id\u0151t, \xEDgy k\xF6nnyebb lesz p\xF6ck\xF6lni a szemeteket."
     icon: {fileID: 21300000, guid: c252d57f5d572d046afb2ffa27a9bfdf, type: 3}
-    duration: 10
+    duration: 20
     rarity: 0
   abilityCooldown: 10

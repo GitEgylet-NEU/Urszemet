@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 389007e5e03e1ab43b328b60ea90df86, type: 3}
-  m_Name: kukazsak
+  m_Name: waste_clear
   m_EditorClassIdentifier: 
-  id: test_kukazsak
-  displayName: "Kukazs\xE1k"
-  description: "\xD3 magass\xE1gos kukazs\xE1k."
+  id: waste_clear
+  displayName: Abrakadabra
+  description: "Volt szem\xE9t, nincs szem\xE9t, el t\u0171nt az \xF6sszes a l\xE1t\xF3k\xF6r\xFCnkb\u0151l"
   icon: {fileID: 21300000, guid: 86873f5b14e5037439fcaf1e3513fd65, type: 3}
-  type: 0
+  type: 2
   showInShop: 1
-  price: 123
+  price: 10
   prerequisites: []
