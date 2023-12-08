@@ -8,6 +8,7 @@ public class AudioManager : MonoBehaviour
 
 	public static AudioManager instance;
 	List<AudioSource> sources = new List<AudioSource>();
+	List<string> sourcenames = new List<string>();
 
     private void Awake()
     {
@@ -29,8 +30,14 @@ public class AudioManager : MonoBehaviour
 			return;
 		}
 
+		if (sourcenames.Contains(name))
+        {
+			return;
+        }
+
 		SFX.volume = volume;
 		sources.Add(SFX);
+		sourcenames.Add(name);
 		SFX.Play();
 
 		StartCoroutine(RemoveSFX());
@@ -38,6 +45,7 @@ public class AudioManager : MonoBehaviour
 		{
 			yield return new WaitForSeconds(SFX.clip.length);
 			sources.Remove(SFX);
+			sourcenames.Remove(name);
 			Destroy(SFX);
 		}
 	}
