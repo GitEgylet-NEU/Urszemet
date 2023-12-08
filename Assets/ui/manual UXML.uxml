@@ -8,28 +8,22 @@
                 </ui:Foldout>
                 <ui:Foldout text="Leírás" value="false">
                     <ui:Foldout text="A játék célja" value="false">
-                        <ui:Label tabindex="-1" text="Minnél több szemetet a megfelelő színű kukába helyezni (hint: outline segít) úgy, hogy azokat egyszer „pöckölheted”. A kukák között tudsz váltogatni a jobb oldalon levő fel-le gombokkal, hogy minden szemétnek legyen helye." parse-escape-sequences="true" display-tooltip-when-elided="true" style="flex-wrap: wrap; white-space: normal;" />
+                        <ui:Label tabindex="-1" text="Minél több szemetet a megfelelő színű kukába helyezni úgy, hogy azokat egyszer „pöckölheted”. A kukák között tudsz váltogatni a jobb oldalon levő fel-le gombokkal, hogy minden szemétnek legyen helye." parse-escape-sequences="true" display-tooltip-when-elided="true" enable-rich-text="true" style="flex-wrap: wrap; white-space: normal;" />
                     </ui:Foldout>
                     <ui:Foldout text="A játék vége" value="false">
-                        <ui:Label tabindex="-1" text="Elfogy a 3 élet (3 szív alul) vagy eléred a kukapacitás maximumát (jobb alsó sarok). A shopban van lehetőséged ezt a maximumot növelni." parse-escape-sequences="true" display-tooltip-when-elided="true" style="flex-wrap: wrap; white-space: normal;" />
+                        <ui:Label tabindex="-1" text="A kör akkor ér véget, ha elfogy a 3 élet (3 szív alul) vagy eléred a kukapacitás maximumát (jobb alsó sarok). Az életeidből akkor vesztesz, ha egy szemetet helytelenül szelektálsz, tehát figyelj oda! A shopban van lehetőséged a kuka kapacitását növelni, hogy ne kelljen gyakran hazatérned. Ezektől függetlenül is hazatérhetsz, ha szünetelteted a játékot (bal felső sarok)." parse-escape-sequences="true" display-tooltip-when-elided="true" style="flex-wrap: wrap; white-space: normal;" />
                     </ui:Foldout>
                     <ui:Foldout text="Random eventek" value="false">
-                        <ui:Label tabindex="-1" text="Konvoj: megbízást kapsz, hogy takarítsd el az utat egy űrhajó konvoj elől. Teljesítve nagy jutalom ütheti a markodat, de vigyázz, ha akár egy szemét is keresztezi az űrhajók útját nem csak a mesés jutalomról, de az eddig szerzett pontjaidból való levonásra számíthatsz&#10;Gravitációs anomália: Hohó, csak nem egy fekete lyuk tűnt fel a láthatáron! Magába szippantja az összes értékes szemetet" parse-escape-sequences="true" display-tooltip-when-elided="true" style="flex-wrap: wrap; white-space: normal;" />
+                        <ui:Label tabindex="-1" text="A játék folyamán előfordulhatnak random eventek, amik tesztelik rátermettséged. Ilyenek például a jó és rossz modifierek, vagy gravitációs anomáliák, konvojok." parse-escape-sequences="true" display-tooltip-when-elided="true" style="flex-wrap: wrap; white-space: normal;" />
                     </ui:Foldout>
-                    <ui:Foldout text="név" value="false">
-                        <ui:Label tabindex="-1" text="ajnféonaeőoinőaiwenvőoinwőevoinaőwknfwakenéclkanweéfonéwalebélskbévcklsbdéfkjbaéskjcnlekjclaksjbdlckjbsdlajkeblabecéobaéecibéasobdckjsdbcaljdbclkajsbdlckjbasldkj" parse-escape-sequences="true" display-tooltip-when-elided="true" style="flex-wrap: wrap; white-space: normal;" />
+                    <ui:Foldout text="Modifierek" value="false">
+                        <ui:Label tabindex="-1" text="A modifierek olyan segítő vagy hátráltató játékelemek, amik gömbök formájában jelennek meg. Párokban spawnolnak, és akkor fejtik ki hatásukat, ha egymásnak ütköznek. (kék = jó, piros = rossz) Viszont ezeket a gömböket nem tudod pöckölni, tehát a mozgásukat csak a többi szeméttel tudod befolyásolni!" parse-escape-sequences="true" display-tooltip-when-elided="true" style="flex-wrap: wrap; white-space: normal;" />
                     </ui:Foldout>
-                    <ui:Foldout text="név" value="false">
-                        <ui:Label tabindex="-1" text="ajnféonaeőoinőaiwenvőoinwőevoinaőwknfwakenéclkanweéfonéwalebélskbévcklsbdéfkjbaéskjcnlekjclaksjbdlckjbsdlajkeblabecéobaéecibéasobdckjsdbcaljdbclkajsbdlckjbasldkj" parse-escape-sequences="true" display-tooltip-when-elided="true" style="flex-wrap: wrap; white-space: normal;" />
+                    <ui:Foldout text="Szemétfajták" value="false">
+                        <ui:Label tabindex="-1" text="A játékban az alábbi szemétfajták találhatóak meg:&#10;Műanyag (citromsárga): Buzz Lightyear, PET-palack&#10;Kommunális (barna): almacsutka&#10;Fém (sötétkék): babkonzerv, hűtőszekrény&#10;Papír (világoskék): WC papír&#10;Üveg (világoszöld): befőttesüveg" parse-escape-sequences="true" display-tooltip-when-elided="true" style="flex-wrap: wrap; white-space: normal;" />
                     </ui:Foldout>
-                    <ui:Foldout text="név" value="false">
-                        <ui:Label tabindex="-1" text="ajnféonaeőoinőaiwenvőoinwőevoinaőwknfwakenéclkanweéfonéwalebélskbévcklsbdéfkjbaéskjcnlekjclaksjbdlckjbsdlajkeblabecéobaéecibéasobdckjsdbcaljdbclkajsbdlckjbasldkj" parse-escape-sequences="true" display-tooltip-when-elided="true" style="flex-wrap: wrap; white-space: normal;" />
-                    </ui:Foldout>
-                    <ui:Foldout text="név" value="false" name="Foldout">
-                        <ui:Label tabindex="-1" text="ajnféonaeőoinőaiwenvőoinwőevoinaőwknfwakenéclkanweéfonéwalebélskbévcklsbdéfkjbaéskjcnlekjclaksjbdlckjbsdlajkeblabecéobaéecibéasobdckjsdbcaljdbclkajsbdlckjbasldkj" parse-escape-sequences="true" display-tooltip-when-elided="true" style="flex-wrap: wrap; white-space: normal;" />
-                    </ui:Foldout>
-                    <ui:Foldout text="név" value="false">
-                        <ui:Label tabindex="-1" text="ajnféonaeőoinőaiwenvőoinwőevoinaőwknfwakenéclkanweéfonéwalebélskbévcklsbdéfkjbaéskjcnlekjclaksjbdlckjbsdlajkeblabecéobaéecibéasobdckjsdbcaljdbclkajsbdlckjbasldkj" parse-escape-sequences="true" display-tooltip-when-elided="true" style="flex-wrap: wrap; white-space: normal;" />
+                    <ui:Foldout text="Képességek" value="false">
+                        <ui:Label tabindex="-1" text="A játékban a képességek olyan elhasználható segítségek, amiket előbb a főmenü Bolt részén kell megvásárolni. Darabszámra veheted őket, és a kör során értelemszerűen annyit használhatsz belőle, ahányat vettél." parse-escape-sequences="true" display-tooltip-when-elided="true" style="flex-wrap: wrap; white-space: normal;" />
                     </ui:Foldout>
                 </ui:Foldout>
             </ui:ScrollView>
