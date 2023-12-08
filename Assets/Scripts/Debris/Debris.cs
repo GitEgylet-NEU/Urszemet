@@ -15,8 +15,8 @@ public class Debris : MonoBehaviour
 		Communal = 0,
 		Plastic = 1,
 		Metal = 2,
-		Electronics = 3,
 		Glass = 4,
+		Paper = 5,
 		SpecialGood = 10,
 		SpecialBad = 11
 	}

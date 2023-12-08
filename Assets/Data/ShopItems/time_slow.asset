@@ -15,7 +15,7 @@ MonoBehaviour:
   id: time_slow
   displayName: "id\u0151hurok"
   description: "Id\u0151hurkot hoz l\xE9tre, amely lass\xEDtja az id\u0151 foly\xE1s\xE1t"
-  icon: {fileID: 21300000, guid: 86873f5b14e5037439fcaf1e3513fd65, type: 3}
+  icon: {fileID: 21300000, guid: 27a5039ef74667744a06d438deac8901, type: 3}
   type: 2
   showInShop: 1
   price: 10

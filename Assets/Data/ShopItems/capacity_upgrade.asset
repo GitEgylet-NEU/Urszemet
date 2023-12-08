@@ -16,7 +16,7 @@ MonoBehaviour:
   displayName: "Kapacit\xE1s fejleszt\xE9s"
   description: "Fejlesztheted az \u0171rhaj\xF3d szem\xE9tt\xE1rol\xF3 ter\xE9t,
     hogy ritk\xE1bban kelljen hazaj\xE1rnod a teli tart\xE1lyok miatt!"
-  icon: {fileID: 21300000, guid: 86873f5b14e5037439fcaf1e3513fd65, type: 3}
+  icon: {fileID: 21300000, guid: f4835c6ddba663048b1180a0b9f52733, type: 3}
   type: 0
   showInShop: 1
   price: 20

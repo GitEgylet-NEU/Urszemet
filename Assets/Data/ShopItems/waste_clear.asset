@@ -15,7 +15,7 @@ MonoBehaviour:
   id: waste_clear
   displayName: Abrakadabra
   description: "Volt szem\xE9t, nincs szem\xE9t, elt\u0171nt az \xF6sszes a l\xE1t\xF3k\xF6r\xFCnkb\u0151l"
-  icon: {fileID: 21300000, guid: 86873f5b14e5037439fcaf1e3513fd65, type: 3}
+  icon: {fileID: 21300000, guid: 99c164d2aa8b0184d8c01bfbfdffdc69, type: 3}
   type: 2
   showInShop: 1
   price: 10

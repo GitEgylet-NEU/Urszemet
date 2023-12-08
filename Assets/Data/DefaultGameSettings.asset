@@ -19,36 +19,37 @@ MonoBehaviour:
     shouldSpawnBin: 1
     shouldCount: 0
     sprites:
-    - {fileID: 21300000, guid: 86873f5b14e5037439fcaf1e3513fd65, type: 3}
+    - {fileID: 21300000, guid: f3cae440ce2dae3409d9793a6d14b2fd, type: 3}
   - debrisType: 1
     displayName: "M\u0171anyag"
     color: {r: 1, g: 0.875, b: 0.25, a: 1}
     shouldSpawnBin: 1
     shouldCount: 1
     sprites:
-    - {fileID: 21300000, guid: 3acbb4480a3e99f49a2a9e18d8e60dc4, type: 3}
+    - {fileID: 21300000, guid: 87f78276a92e5094193c04249979bf11, type: 3}
+    - {fileID: 21300000, guid: 9b95cbb8efd7c084681adcbb7fd9cf26, type: 3}
   - debrisType: 2
     displayName: "F\xE9m"
     color: {r: 0.1851011, g: 0.1716358, b: 0.2735849, a: 1}
     shouldSpawnBin: 1
     shouldCount: 1
     sprites:
-    - {fileID: 21300000, guid: 9a26c252c411e9f43b8184318ed48e05, type: 3}
-  - debrisType: 3
-    displayName: Elektronika
+    - {fileID: 21300000, guid: 0b6d8f6ce36801e4694070082ff9d78e, type: 3}
+    - {fileID: 21300000, guid: 38ecf30bcaed5794db1e055f9e7c3f55, type: 3}
+  - debrisType: 5
+    displayName: "Pap\xEDr"
     color: {r: 0.3443396, g: 1, b: 0.9696664, a: 1}
     shouldSpawnBin: 1
     shouldCount: 1
     sprites:
-    - {fileID: 21300000, guid: c252d57f5d572d046afb2ffa27a9bfdf, type: 3}
-    - {fileID: 21300000, guid: 18dd64a3706fff94d8bfd7c36ca70972, type: 3}
+    - {fileID: 21300000, guid: 75b831422a556ff488ff319b1e25d00a, type: 3}
   - debrisType: 4
     displayName: "\xDCveg"
     color: {r: 0.5274538, g: 1, b: 0.34509802, a: 1}
     shouldSpawnBin: 1
     shouldCount: 1
     sprites:
-    - {fileID: 21300000, guid: 884cfcc3836edb749add0fc50887d3c2, type: 3}
+    - {fileID: 21300000, guid: a2a7934aff4db404ba0ccf2f51759ce8, type: 3}
   minDistance: 1
   goodSDPrefab: {fileID: 7365716837782167407, guid: 038df3ed8419689479cb78ccb278382e, type: 3}
   badSDPrefab: {fileID: 519101710274698116, guid: 51ee0981289f680488c021b913c4c77b, type: 3}
