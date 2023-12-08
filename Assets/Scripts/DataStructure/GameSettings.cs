@@ -15,9 +15,6 @@ public class GameSettings : ScriptableObject
 	public GameObject badSDPrefab;
 	public float minSDDistance = 5f;
 
-	[Header("Gameplay")]
-	public int defaultBinCapacity = 25;
-
 	[Header("Random Events")]
 	public MinMaxRange eventSpawnInterval;
 	public RandomEventData[] randomEventData;
@@ -27,6 +24,8 @@ public class GameSettings : ScriptableObject
 
 	[Header("Shop & Items")]
 	public ShopItemData[] shopItemData;
+	public ShopItemData capacityUpgradeItem;
+	public int[] capacityUpgradeLevels;
 
 	[Header("Saving")]
 	public string saveExtension;
@@ -72,6 +71,7 @@ public class GameSettings : ScriptableObject
 
 	public ShopItemData GetShopItemData(string ID)
 	{
+		if (ID == "capacity_upgrade") return capacityUpgradeItem;
 		return shopItemData.Where(x => x.id == ID).FirstOrDefault();
 	}
 

@@ -41,19 +41,19 @@ public sealed class GameManager : MonoBehaviour
 	{
 		if (!loaded) return;
 		//reset data
-		if (Input.GetKeyDown(KeyCode.R))
-		{
-			counter = 0;
-			points = 0;
-			binCapacity = gameSettings.defaultBinCapacity;
-			SaveData();
-		}
+		//if (Input.GetKeyDown(KeyCode.R))
+		//{
+		//	counter = 0;
+		//	points = 0;
+		//	InventoryManager.instance.SetItem("capacity_upgrade", 0);
+		//	SaveData();
+		//}
 
 		if (strikes <= 0)
 		{
 			UIManager.instance.ShowGameOver(true);
 		}
-		else if (binFilled >= binCapacity)
+		else if (binCapacity != 0 && binFilled >= binCapacity)
 		{
 			UIManager.instance.ShowGameOver(false);
 		}
@@ -82,10 +82,8 @@ public sealed class GameManager : MonoBehaviour
 	{
 		var query = SaveManager.instance.saveData.GetData("currency");
 		if (query != null) points = (float)query;
-		query = SaveManager.instance.saveData.GetData("bin_capacity");
-		if (query != null) binCapacity = (int)query;
-		else binCapacity = gameSettings.defaultBinCapacity;
-		if (binCapacity <= 0) binCapacity = gameSettings.defaultBinCapacity;
+		int cap = InventoryManager.instance.GetItem("capacity_upgrade");
+		cap = gameSettings.capacityUpgradeLevels[cap];
 	}
 	public void SaveData()
 	{

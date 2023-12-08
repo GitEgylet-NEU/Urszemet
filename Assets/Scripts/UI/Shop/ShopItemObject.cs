@@ -26,8 +26,12 @@ public class ShopItemObject : MonoBehaviour
 
 	public void SetData(string id)
 	{
-		itemDataID = id;
-		itemData = ShopMenu.instance.gameSettings.GetShopItemData(itemDataID);
+		SetData(ShopMenu.instance.gameSettings.GetShopItemData(id));
+	}
+	public void SetData(ShopItemData itemData)
+	{
+		this.itemData = itemData;
+		itemDataID = itemData.id;
 		nameText.text = itemData.displayName;
 		iconImage.sprite = itemData.icon;
 	}

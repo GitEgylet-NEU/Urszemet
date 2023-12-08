@@ -12,7 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 554f11639f5f36b48b9f111fc033c269, type: 3}
   m_Name: DefaultGameSettings
   m_EditorClassIdentifier: 
-  debrisPrefab: {fileID: 7926378065607543001, guid: d3ada265137685d428592dd3311b65ba, type: 3}
   debrisTypeData:
   - debrisType: 0
     displayName: "Kommun\xE1lis"
@@ -54,7 +53,6 @@ MonoBehaviour:
   goodSDPrefab: {fileID: 7365716837782167407, guid: 038df3ed8419689479cb78ccb278382e, type: 3}
   badSDPrefab: {fileID: 519101710274698116, guid: 51ee0981289f680488c021b913c4c77b, type: 3}
   minSDDistance: 5
-  defaultBinCapacity: 30
   eventSpawnInterval:
     min: 10
     max: 30
@@ -105,5 +103,7 @@ MonoBehaviour:
   shopItemData:
   - {fileID: 11400000, guid: c3b1891e4f2da8c4788e84423934f265, type: 2}
   - {fileID: 11400000, guid: 499fd7e55ebe14f4d97f7e642a4d0ce1, type: 2}
+  capacityUpgradeItem: {fileID: 11400000, guid: fac489542f4029d4a8a8de77cdef9516, type: 2}
+  capacityUpgradeLevels: 1e0000003c000000780000002c010000e8030000
   saveExtension: main_save
   savePath: sav

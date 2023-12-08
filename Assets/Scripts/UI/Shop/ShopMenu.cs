@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.UI;
 
 public class ShopMenu : MonoBehaviour
@@ -54,15 +55,25 @@ public class ShopMenu : MonoBehaviour
 
 	void Initialise()
 	{
-		var items = gameSettings.shopItemData.Where(i => i.showInShop).ToArray();
-		itemObjects = new ShopItemObject[items.Length];
-		for (int i = 0; i < items.Length; i++)
+		var items = gameSettings.shopItemData.Where(i => i.showInShop).ToList();
+		items.Add(gameSettings.capacityUpgradeItem);
+		itemObjects = new ShopItemObject[items.Count];
+		for (int i = 0; i < items.Count - 1; i++)
 		{
 			var obj = Instantiate(itemObjectPrefab, itemGrid);
 			itemObjects[i] = obj.GetComponent<ShopItemObject>();
 			itemObjects[i].SetData(items[i].id);
 			obj.SetActive(true);
 		}
+		//cap upgrade
+		if (InventoryManager.instance.GetItem("capacity_upgrade") < gameSettings.capacityUpgradeLevels.Length - 1)
+		{
+			var obj = Instantiate(itemObjectPrefab, itemGrid);
+			itemObjects[itemObjects.Length - 1] = obj.GetComponent<ShopItemObject>();
+			itemObjects[itemObjects.Length - 1].SetData(gameSettings.capacityUpgradeItem);
+			obj.SetActive(true);
+		}
+
 		itemDetailPanel.gameObject.SetActive(false);
 		itemGrid.SetHeight(CalculateHeight());
 		if (currencyText != null) currencyText.text = InventoryManager.instance.Currency.ToString("# ##0.0");
@@ -115,6 +126,22 @@ public class ShopMenu : MonoBehaviour
 			itemIconImage.enabled = data.icon != null;
 
 			buyButton.interactable = InventoryManager.instance.CanAfford(data.price);
+
+			if (data.id == "capacity_upgrade")
+			{
+				int szint = InventoryManager.instance.GetItem("capacity_upgrade") + 1;
+				if (szint == gameSettings.capacityUpgradeLevels.Length)
+				{
+					Deselect();
+					var a = itemObjects.Last();
+					itemObjects[itemObjects.Length - 1] = null;
+					Destroy(a.gameObject);
+					return;
+				}
+				itemDurationText.text = $"<b>Szint</b>: {szint} / {gameSettings.capacityUpgradeLevels.Length}";
+				itemDescriptionText.text += "\n\nKövetkezõ kapacitás: " + gameSettings.capacityUpgradeLevels[szint - 1];
+				itemQuantityText.text = string.Empty;
+			}
 		}
 
 		if (currencyText != null) currencyText.text = InventoryManager.instance.Currency.ToString("# ##0.0");
