@@ -26,9 +26,6 @@ public class InventoryManager : MonoBehaviour
 
 		//create entries for abilities
 		foreach (var ability in SaveManager.instance.gameSettings.modifierSettings.abilities) if (!Items.ContainsKey(ability.id)) Items.Add(ability.id, 0);
-
-		AddItem("waste_clear", 2);
-		AddItem("time_slow", 2);
 	}
 
 	private void OnApplicationQuit()
@@ -36,7 +33,7 @@ public class InventoryManager : MonoBehaviour
 		SaveChanges();
 	}
 
-	void SaveChanges()
+	public void SaveChanges()
 	{
 		SaveManager.instance.saveData.EditData("inventoryItems", Items.SerializeDictionary().ToArray());
 		SaveManager.instance.saveData.EditData("currency", Currency);

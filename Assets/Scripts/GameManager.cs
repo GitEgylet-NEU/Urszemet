@@ -83,7 +83,7 @@ public sealed class GameManager : MonoBehaviour
 		var query = SaveManager.instance.saveData.GetData("currency");
 		if (query != null) points = (float)query;
 		int cap = InventoryManager.instance.GetItem("capacity_upgrade");
-		cap = gameSettings.capacityUpgradeLevels[cap];
+		binCapacity = gameSettings.capacityUpgradeLevels[cap];
 	}
 	public void SaveData()
 	{

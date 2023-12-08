@@ -66,13 +66,10 @@ public class ShopMenu : MonoBehaviour
 			obj.SetActive(true);
 		}
 		//cap upgrade
-		if (InventoryManager.instance.GetItem("capacity_upgrade") < gameSettings.capacityUpgradeLevels.Length - 1)
-		{
-			var obj = Instantiate(itemObjectPrefab, itemGrid);
-			itemObjects[itemObjects.Length - 1] = obj.GetComponent<ShopItemObject>();
-			itemObjects[itemObjects.Length - 1].SetData(gameSettings.capacityUpgradeItem);
-			obj.SetActive(true);
-		}
+		var cap = Instantiate(itemObjectPrefab, itemGrid);
+		itemObjects[^1] = cap.GetComponent<ShopItemObject>();
+		itemObjects[^1].SetData(gameSettings.capacityUpgradeItem);
+		cap.SetActive(true);
 
 		itemDetailPanel.gameObject.SetActive(false);
 		itemGrid.SetHeight(CalculateHeight());
@@ -130,16 +127,10 @@ public class ShopMenu : MonoBehaviour
 			if (data.id == "capacity_upgrade")
 			{
 				int szint = InventoryManager.instance.GetItem("capacity_upgrade") + 1;
-				if (szint == gameSettings.capacityUpgradeLevels.Length)
-				{
-					Deselect();
-					var a = itemObjects.Last();
-					itemObjects[itemObjects.Length - 1] = null;
-					Destroy(a.gameObject);
-					return;
-				}
+				bool buyable = szint < gameSettings.capacityUpgradeLevels.Length;
+				buyButton.interactable = buyable;
 				itemDurationText.text = $"<b>Szint</b>: {szint} / {gameSettings.capacityUpgradeLevels.Length}";
-				itemDescriptionText.text += "\n\nKövetkezõ kapacitás: " + gameSettings.capacityUpgradeLevels[szint - 1];
+				if (buyable) itemDescriptionText.text += "\n\nKövetkezõ kapacitás: " + gameSettings.capacityUpgradeLevels[szint - 1];
 				itemQuantityText.text = string.Empty;
 			}
 		}
@@ -149,7 +140,7 @@ public class ShopMenu : MonoBehaviour
 	float CalculateHeight()
 	{
 		float height = 25f;
-		height += Mathf.CeilToInt(itemObjects.Length / 2f) * 225f;
+		height += Mathf.CeilToInt(itemObjects.Length / 2f) * 200f;
 		return height;
 	}
 }
