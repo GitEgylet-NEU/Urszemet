@@ -5,7 +5,6 @@ public class Bin : MonoBehaviour
 {
 	public Debris.DebrisType type;
 	bool shouldCount = true;
-	public AudioManager AM;
 
 	private void Start()
 	{
@@ -29,7 +28,7 @@ public class Bin : MonoBehaviour
 				{
 					//GameManager.instance.counter--;
 					GameManager.instance.strikes--;
-					AM.PlaySound("strike");
+					if (GameManager.instance.strikes > 0) AudioManager.instance.PlaySound("strike");
 				}
 			}
 			GameManager.instance.binFilled++;

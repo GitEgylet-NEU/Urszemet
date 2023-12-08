@@ -6,9 +6,15 @@ public class AudioManager : MonoBehaviour
 {
 	float volume = .75f;
 
-	List<AudioSource> sources;
+	public static AudioManager instance;
+	List<AudioSource> sources = new List<AudioSource>();
 
-	public void PlaySound(string name)
+    private void Awake()
+    {
+		instance = this;
+    }
+
+    public void PlaySound(string name)
 	{
 		AudioSource SFX = gameObject.AddComponent<AudioSource>();
 
