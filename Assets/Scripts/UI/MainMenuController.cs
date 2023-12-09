@@ -1,21 +1,29 @@
+using TMPro;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class UIcontroller : MonoBehaviour
+public class MainMenuController : MonoBehaviour
 {
 	public int ActiveTab = 0;
 	public Animator HoloAnimator;
 	public GameObject[] UI;
+	public TextMeshProUGUI versionText;
 
 	void Start()
 	{
 		ActiveTab = -1;
+		versionText.text = 'v' + PlayerSettings.bundleVersion;
 	}
 
 	
 	public void PlayButton()
 	{
 		SceneManager.LoadScene("SampleScene");
+	}
+	public void OpenURLInBrowser(string url)
+	{
+		Application.OpenURL(url);
 	}
 
 	//gombonyaskor meghiv int button sorszammal
