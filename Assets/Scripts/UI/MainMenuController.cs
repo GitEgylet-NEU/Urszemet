@@ -13,7 +13,12 @@ public class MainMenuController : MonoBehaviour
 	void Start()
 	{
 		ActiveTab = -1;
-		versionText.text = 'v' + PlayerSettings.bundleVersion;
+#if UNITY_EDITOR
+		PlayerPrefs.SetString("version", PlayerSettings.bundleVersion);
+#endif
+		var query = PlayerPrefs.GetString("version");
+		if (query == null) versionText.gameObject.SetActive(false);
+		else versionText.text = 'v' + query;
 	}
 
 	
